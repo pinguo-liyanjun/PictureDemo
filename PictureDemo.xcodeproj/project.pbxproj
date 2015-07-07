@@ -7,13 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE169D1C1B48F71C00DBE3A1 /* imageSource in Resources */ = {isa = PBXBuildFile; fileRef = DE169D1B1B48F71C00DBE3A1 /* imageSource */; };
+		DE169D291B4924B200DBE3A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE169D281B4924B200DBE3A1 /* UIKit.framework */; };
+		DE169D2B1B4924B900DBE3A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE169D2A1B4924B900DBE3A1 /* Foundation.framework */; };
+		DE169D2D1B4924C000DBE3A1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE169D2C1B4924C000DBE3A1 /* CoreFoundation.framework */; };
+		DE169D2F1B49253B00DBE3A1 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE169D2E1B49253B00DBE3A1 /* AssetsLibrary.framework */; };
+		DE81D3351B4A18DC003FB412 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE81D3331B4A18DC003FB412 /* Main.storyboard */; };
+		DEC35DE01B4B64C300981DFF /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DC31B4B64C300981DFF /* Language.m */; };
+		DEC35DE11B4B64C300981DFF /* UIImage+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DC51B4B64C300981DFF /* UIImage+Custom.m */; };
+		DEC35DE31B4B64C300981DFF /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DCA1B4B64C300981DFF /* CollectionViewCell.m */; };
+		DEC35DE41B4B64C300981DFF /* EditCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DCC1B4B64C300981DFF /* EditCollectionViewCell.m */; };
+		DEC35DE51B4B64C300981DFF /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DCE1B4B64C300981DFF /* TableViewCell.m */; };
+		DEC35DE61B4B64C300981DFF /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DD11B4B64C300981DFF /* BaseViewController.m */; };
+		DEC35DE71B4B64C300981DFF /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DD31B4B64C300981DFF /* EditPhotoViewController.m */; };
+		DEC35DE81B4B64C300981DFF /* MyPhotoLibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DD51B4B64C300981DFF /* MyPhotoLibViewController.m */; };
+		DEC35DE91B4B64C300981DFF /* OtherPhotoLibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DD71B4B64C300981DFF /* OtherPhotoLibViewController.m */; };
+		DEC35DEA1B4B64C300981DFF /* PhotoLibSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DD91B4B64C300981DFF /* PhotoLibSelectorViewController.m */; };
+		DEC35DEB1B4B64C300981DFF /* SelectPhotoFromLibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DDB1B4B64C300981DFF /* SelectPhotoFromLibViewController.m */; };
+		DEC35DEC1B4B64C300981DFF /* ShowPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DDD1B4B64C300981DFF /* ShowPhotoViewController.m */; };
+		DEC35DED1B4B64C300981DFF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DDF1B4B64C300981DFF /* ViewController.m */; };
+		DEC35DFE1B4B6C7F00981DFF /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DF61B4B6C7F00981DFF /* ALView+PureLayout.m */; };
+		DEC35DFF1B4B6C7F00981DFF /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DF81B4B6C7F00981DFF /* NSArray+PureLayout.m */; };
+		DEC35E001B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35DFA1B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.m */; };
+		DEC35E061B4B767E00981DFF /* NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC35E051B4B767E00981DFF /* NavigationBar.m */; };
 		DEC8E30D1B461BA9003B7A59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC8E30C1B461BA9003B7A59 /* main.m */; };
 		DEC8E3101B461BA9003B7A59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC8E30F1B461BA9003B7A59 /* AppDelegate.m */; };
-		DEC8E3131B461BA9003B7A59 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC8E3121B461BA9003B7A59 /* ViewController.m */; };
-		DEC8E3161B461BA9003B7A59 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEC8E3141B461BA9003B7A59 /* Main.storyboard */; };
 		DEC8E3181B461BA9003B7A59 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC8E3171B461BA9003B7A59 /* Images.xcassets */; };
 		DEC8E31B1B461BA9003B7A59 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC8E3191B461BA9003B7A59 /* LaunchScreen.xib */; };
 		DEC8E3271B461BA9003B7A59 /* PictureDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC8E3261B461BA9003B7A59 /* PictureDemoTests.m */; };
+		DEC8E33D1B467A0D003B7A59 /* image in Resources */ = {isa = PBXBuildFile; fileRef = DEC8E33C1B467A0D003B7A59 /* image */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +49,61 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE169D1B1B48F71C00DBE3A1 /* imageSource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = imageSource; sourceTree = "<group>"; };
+		DE169D281B4924B200DBE3A1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DE169D2A1B4924B900DBE3A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DE169D2C1B4924C000DBE3A1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		DE169D2E1B49253B00DBE3A1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		DE81D3341B4A18DC003FB412 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DEC35DC11B4B64C300981DFF /* Default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Default.h; sourceTree = "<group>"; };
+		DEC35DC21B4B64C300981DFF /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
+		DEC35DC31B4B64C300981DFF /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
+		DEC35DC41B4B64C300981DFF /* UIImage+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Custom.h"; sourceTree = "<group>"; };
+		DEC35DC51B4B64C300981DFF /* UIImage+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Custom.m"; sourceTree = "<group>"; };
+		DEC35DC91B4B64C300981DFF /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
+		DEC35DCA1B4B64C300981DFF /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		DEC35DCB1B4B64C300981DFF /* EditCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCollectionViewCell.h; sourceTree = "<group>"; };
+		DEC35DCC1B4B64C300981DFF /* EditCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCollectionViewCell.m; sourceTree = "<group>"; };
+		DEC35DCD1B4B64C300981DFF /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		DEC35DCE1B4B64C300981DFF /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		DEC35DD01B4B64C300981DFF /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		DEC35DD11B4B64C300981DFF /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		DEC35DD21B4B64C300981DFF /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
+		DEC35DD31B4B64C300981DFF /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
+		DEC35DD41B4B64C300981DFF /* MyPhotoLibViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPhotoLibViewController.h; sourceTree = "<group>"; };
+		DEC35DD51B4B64C300981DFF /* MyPhotoLibViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPhotoLibViewController.m; sourceTree = "<group>"; };
+		DEC35DD61B4B64C300981DFF /* OtherPhotoLibViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherPhotoLibViewController.h; sourceTree = "<group>"; };
+		DEC35DD71B4B64C300981DFF /* OtherPhotoLibViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherPhotoLibViewController.m; sourceTree = "<group>"; };
+		DEC35DD81B4B64C300981DFF /* PhotoLibSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibSelectorViewController.h; sourceTree = "<group>"; };
+		DEC35DD91B4B64C300981DFF /* PhotoLibSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibSelectorViewController.m; sourceTree = "<group>"; };
+		DEC35DDA1B4B64C300981DFF /* SelectPhotoFromLibViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPhotoFromLibViewController.h; sourceTree = "<group>"; };
+		DEC35DDB1B4B64C300981DFF /* SelectPhotoFromLibViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPhotoFromLibViewController.m; sourceTree = "<group>"; };
+		DEC35DDC1B4B64C300981DFF /* ShowPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPhotoViewController.h; sourceTree = "<group>"; };
+		DEC35DDD1B4B64C300981DFF /* ShowPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPhotoViewController.m; sourceTree = "<group>"; };
+		DEC35DDE1B4B64C300981DFF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DEC35DDF1B4B64C300981DFF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DEC35DF51B4B6C7F00981DFF /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
+		DEC35DF61B4B6C7F00981DFF /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
+		DEC35DF71B4B6C7F00981DFF /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		DEC35DF81B4B6C7F00981DFF /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
+		DEC35DF91B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		DEC35DFA1B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		DEC35DFB1B4B6C7F00981DFF /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
+		DEC35DFC1B4B6C7F00981DFF /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
+		DEC35DFD1B4B6C7F00981DFF /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
+		DEC35E041B4B767E00981DFF /* NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBar.h; sourceTree = "<group>"; };
+		DEC35E051B4B767E00981DFF /* NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBar.m; sourceTree = "<group>"; };
 		DEC8E3071B461BA9003B7A59 /* PictureDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PictureDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC8E30B1B461BA9003B7A59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC8E30C1B461BA9003B7A59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DEC8E30E1B461BA9003B7A59 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DEC8E30F1B461BA9003B7A59 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DEC8E3111B461BA9003B7A59 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DEC8E3121B461BA9003B7A59 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		DEC8E3151B461BA9003B7A59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DEC8E3171B461BA9003B7A59 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DEC8E31A1B461BA9003B7A59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DEC8E3201B461BA9003B7A59 /* PictureDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PictureDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC8E3251B461BA9003B7A59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC8E3261B461BA9003B7A59 /* PictureDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PictureDemoTests.m; sourceTree = "<group>"; };
+		DEC8E33C1B467A0D003B7A59 /* image */ = {isa = PBXFileReference; lastKnownFileType = folder; path = image; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +111,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE169D2F1B49253B00DBE3A1 /* AssetsLibrary.framework in Frameworks */,
+				DE169D2D1B4924C000DBE3A1 /* CoreFoundation.framework in Frameworks */,
+				DE169D2B1B4924B900DBE3A1 /* Foundation.framework in Frameworks */,
+				DE169D291B4924B200DBE3A1 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,11 +128,90 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DEC35DAE1B4B624800981DFF /* FrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				DE169D2E1B49253B00DBE3A1 /* AssetsLibrary.framework */,
+				DE169D2C1B4924C000DBE3A1 /* CoreFoundation.framework */,
+				DE169D2A1B4924B900DBE3A1 /* Foundation.framework */,
+				DE169D281B4924B200DBE3A1 /* UIKit.framework */,
+			);
+			name = FrameWork;
+			path = PictureDemoTests;
+			sourceTree = "<group>";
+		};
+		DEC35DC01B4B64C300981DFF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DEC35DC11B4B64C300981DFF /* Default.h */,
+				DEC35DC21B4B64C300981DFF /* Language.h */,
+				DEC35DC31B4B64C300981DFF /* Language.m */,
+				DEC35DC41B4B64C300981DFF /* UIImage+Custom.h */,
+				DEC35DC51B4B64C300981DFF /* UIImage+Custom.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DEC35DC81B4B64C300981DFF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DEC35DC91B4B64C300981DFF /* CollectionViewCell.h */,
+				DEC35DCA1B4B64C300981DFF /* CollectionViewCell.m */,
+				DEC35DCB1B4B64C300981DFF /* EditCollectionViewCell.h */,
+				DEC35DCC1B4B64C300981DFF /* EditCollectionViewCell.m */,
+				DEC35DCD1B4B64C300981DFF /* TableViewCell.h */,
+				DEC35DCE1B4B64C300981DFF /* TableViewCell.m */,
+				DEC35E041B4B767E00981DFF /* NavigationBar.h */,
+				DEC35E051B4B767E00981DFF /* NavigationBar.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DEC35DCF1B4B64C300981DFF /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DEC35DD01B4B64C300981DFF /* BaseViewController.h */,
+				DEC35DD11B4B64C300981DFF /* BaseViewController.m */,
+				DEC35DD21B4B64C300981DFF /* EditPhotoViewController.h */,
+				DEC35DD31B4B64C300981DFF /* EditPhotoViewController.m */,
+				DEC35DD41B4B64C300981DFF /* MyPhotoLibViewController.h */,
+				DEC35DD51B4B64C300981DFF /* MyPhotoLibViewController.m */,
+				DEC35DD61B4B64C300981DFF /* OtherPhotoLibViewController.h */,
+				DEC35DD71B4B64C300981DFF /* OtherPhotoLibViewController.m */,
+				DEC35DD81B4B64C300981DFF /* PhotoLibSelectorViewController.h */,
+				DEC35DD91B4B64C300981DFF /* PhotoLibSelectorViewController.m */,
+				DEC35DDA1B4B64C300981DFF /* SelectPhotoFromLibViewController.h */,
+				DEC35DDB1B4B64C300981DFF /* SelectPhotoFromLibViewController.m */,
+				DEC35DDC1B4B64C300981DFF /* ShowPhotoViewController.h */,
+				DEC35DDD1B4B64C300981DFF /* ShowPhotoViewController.m */,
+				DEC35DDE1B4B64C300981DFF /* ViewController.h */,
+				DEC35DDF1B4B64C300981DFF /* ViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DEC35DF41B4B6C7F00981DFF /* PureLayout */ = {
+			isa = PBXGroup;
+			children = (
+				DEC35DF51B4B6C7F00981DFF /* ALView+PureLayout.h */,
+				DEC35DF61B4B6C7F00981DFF /* ALView+PureLayout.m */,
+				DEC35DF71B4B6C7F00981DFF /* NSArray+PureLayout.h */,
+				DEC35DF81B4B6C7F00981DFF /* NSArray+PureLayout.m */,
+				DEC35DF91B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.h */,
+				DEC35DFA1B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.m */,
+				DEC35DFB1B4B6C7F00981DFF /* PureLayout+Internal.h */,
+				DEC35DFC1B4B6C7F00981DFF /* PureLayout.h */,
+				DEC35DFD1B4B6C7F00981DFF /* PureLayoutDefines.h */,
+			);
+			path = PureLayout;
+			sourceTree = "<group>";
+		};
 		DEC8E2FE1B461BA9003B7A59 = {
 			isa = PBXGroup;
 			children = (
 				DEC8E3091B461BA9003B7A59 /* PictureDemo */,
 				DEC8E3231B461BA9003B7A59 /* PictureDemoTests */,
+				DEC35DAE1B4B624800981DFF /* FrameWork */,
 				DEC8E3081B461BA9003B7A59 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,13 +228,17 @@
 		DEC8E3091B461BA9003B7A59 /* PictureDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DEC35DF41B4B6C7F00981DFF /* PureLayout */,
+				DEC35DC01B4B64C300981DFF /* Model */,
+				DEC35DC81B4B64C300981DFF /* View */,
+				DEC35DCF1B4B64C300981DFF /* ViewController */,
 				DEC8E30E1B461BA9003B7A59 /* AppDelegate.h */,
 				DEC8E30F1B461BA9003B7A59 /* AppDelegate.m */,
-				DEC8E3111B461BA9003B7A59 /* ViewController.h */,
-				DEC8E3121B461BA9003B7A59 /* ViewController.m */,
-				DEC8E3141B461BA9003B7A59 /* Main.storyboard */,
+				DE169D1B1B48F71C00DBE3A1 /* imageSource */,
+				DEC8E33C1B467A0D003B7A59 /* image */,
 				DEC8E3171B461BA9003B7A59 /* Images.xcassets */,
 				DEC8E3191B461BA9003B7A59 /* LaunchScreen.xib */,
+				DE81D3331B4A18DC003FB412 /* Main.storyboard */,
 				DEC8E30A1B461BA9003B7A59 /* Supporting Files */,
 			);
 			path = PictureDemo;
@@ -199,7 +350,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEC8E3161B461BA9003B7A59 /* Main.storyboard in Resources */,
+				DE169D1C1B48F71C00DBE3A1 /* imageSource in Resources */,
+				DE81D3351B4A18DC003FB412 /* Main.storyboard in Resources */,
+				DEC8E33D1B467A0D003B7A59 /* image in Resources */,
 				DEC8E31B1B461BA9003B7A59 /* LaunchScreen.xib in Resources */,
 				DEC8E3181B461BA9003B7A59 /* Images.xcassets in Resources */,
 			);
@@ -219,9 +372,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEC8E3131B461BA9003B7A59 /* ViewController.m in Sources */,
+				DEC35DE61B4B64C300981DFF /* BaseViewController.m in Sources */,
 				DEC8E3101B461BA9003B7A59 /* AppDelegate.m in Sources */,
+				DEC35DEB1B4B64C300981DFF /* SelectPhotoFromLibViewController.m in Sources */,
+				DEC35DE71B4B64C300981DFF /* EditPhotoViewController.m in Sources */,
+				DEC35DE31B4B64C300981DFF /* CollectionViewCell.m in Sources */,
+				DEC35DE41B4B64C300981DFF /* EditCollectionViewCell.m in Sources */,
+				DEC35DED1B4B64C300981DFF /* ViewController.m in Sources */,
+				DEC35DFE1B4B6C7F00981DFF /* ALView+PureLayout.m in Sources */,
+				DEC35DE01B4B64C300981DFF /* Language.m in Sources */,
+				DEC35E061B4B767E00981DFF /* NavigationBar.m in Sources */,
+				DEC35DEA1B4B64C300981DFF /* PhotoLibSelectorViewController.m in Sources */,
+				DEC35DE11B4B64C300981DFF /* UIImage+Custom.m in Sources */,
+				DEC35DEC1B4B64C300981DFF /* ShowPhotoViewController.m in Sources */,
+				DEC35E001B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.m in Sources */,
 				DEC8E30D1B461BA9003B7A59 /* main.m in Sources */,
+				DEC35DE81B4B64C300981DFF /* MyPhotoLibViewController.m in Sources */,
+				DEC35DE51B4B64C300981DFF /* TableViewCell.m in Sources */,
+				DEC35DFF1B4B6C7F00981DFF /* NSArray+PureLayout.m in Sources */,
+				DEC35DE91B4B64C300981DFF /* OtherPhotoLibViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,10 +413,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DEC8E3141B461BA9003B7A59 /* Main.storyboard */ = {
+		DE81D3331B4A18DC003FB412 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DEC8E3151B461BA9003B7A59 /* Base */,
+				DE81D3341B4A18DC003FB412 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -349,7 +518,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = PictureDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -359,7 +530,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = PictureDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -418,6 +591,7 @@
 				DEC8E32C1B461BA9003B7A59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DEC8E32D1B461BA9003B7A59 /* Build configuration list for PBXNativeTarget "PictureDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +600,7 @@
 				DEC8E32F1B461BA9003B7A59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
