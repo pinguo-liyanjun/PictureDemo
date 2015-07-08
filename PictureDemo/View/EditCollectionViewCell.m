@@ -23,11 +23,9 @@
     if (self)
     {
         self.backgroundColor = [UIColor whiteColor];
-        self.imageView = [UIImageView newAutoLayoutView];
-        self.imageView.backgroundColor = [UIColor whiteColor];
+        
         [self addSubview:self.imageView];
         
-        self.titleLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         [self addSubview:self.titleLabel];
         
         self.isSelected = NO;
@@ -60,5 +58,23 @@
 }
 
 #pragma mark --getter--
+
+- (UIImageView *)imageView
+{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc]initForAutoLayout];
+        _imageView.backgroundColor = [UIColor whiteColor];
+    }
+    return _imageView;
+}
+
+- (UILabel *)titleLabel
+{
+    if (!_titleLabel) {
+        _titleLabel = [UILabel newAutoLayoutView];
+        
+    }
+    return _titleLabel;
+}
 
 @end

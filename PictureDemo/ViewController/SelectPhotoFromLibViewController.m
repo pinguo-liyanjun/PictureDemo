@@ -55,7 +55,9 @@
     [super viewDidLoad];
     
     [self.view insertSubview:self.collectionView belowSubview:self.navBar];
+    
     [self getPhotoFromLibByName:self.navTitle];
+    
     [self.view setNeedsUpdateConstraints];
 }
 

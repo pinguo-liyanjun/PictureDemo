@@ -21,12 +21,14 @@
 
 @implementation ShowPhotoViewController
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
         self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
         [self.leftBtn setFrame:CGRectMake(0, 0, 50, NAVIGATIONBAR_HEIGHT)];
         [self.leftBtn setTitle:@"相册" forState:UIControlStateNormal];
         [self.leftBtn setTitle:@"相册" forState:UIControlStateHighlighted];
@@ -51,9 +53,7 @@
 
 - (void)dealloc
 {
-    self.dataSourceArray = nil;
-    self.collectionView = nil;
-    self.assetLibrary = nil;
+
 }
 
 
@@ -98,6 +98,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark --getter--
+
 
 
 #pragma mark --Collection View Data Source --
