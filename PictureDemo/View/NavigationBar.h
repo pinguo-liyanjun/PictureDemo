@@ -10,7 +10,7 @@
 
 @interface NavigationBar : UIView
 
-@property(strong, nonatomic)UILabel *titleLabel;
-@property(strong, nonatomic)UIImageView *backgroundView;
+@property (strong, nonatomic)UILabel *titleLabel;
+@property (strong, nonatomic)UIImageView *backgroundView;
 
 @end

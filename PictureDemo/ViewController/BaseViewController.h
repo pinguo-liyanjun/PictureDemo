@@ -11,15 +11,17 @@
 
 @interface BaseViewController : UIViewController
 
-@property(strong, nonatomic)NavigationBar *navBar;
-@property(copy, nonatomic)NSString *navTitle;
+@property (strong, nonatomic)NavigationBar *navBar;
+@property (copy, nonatomic)NSString *navTitle;
 
 //如果子类定制的按键，则使用定制按键 ，否则使用默认按键
-@property(strong, nonatomic)UIButton *leftBtn;
-@property(strong, nonatomic)UIButton *rightBtn;
+@property (assign, nonatomic)BOOL needSpeciallyLeftBtn;
+@property (assign, nonatomic)BOOL needSpeciallyRightBtn;
+@property (strong, nonatomic)UIButton *leftBtn;
+@property (strong, nonatomic)UIButton *rightBtn;
 
-@property(assign, nonatomic)SEL returnAction;
-@property(assign, nonatomic)SEL doneAction;
-@property(assign, nonatomic)BOOL didSetupConstraints;
+@property (assign, nonatomic)SEL returnAction;
+@property (assign, nonatomic)SEL doneAction;
+@property (assign, nonatomic)BOOL didSetupConstraints;
 
 @end

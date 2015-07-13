@@ -16,9 +16,9 @@
 @interface MyPhotoLibViewController()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 
-@property(nonatomic, strong)UICollectionView *collectionView;
-@property(nonatomic, strong)NSMutableArray *dataSourceArray;
-@property(nonatomic, strong)NSMutableArray *dateArray;
+@property (nonatomic, strong)UICollectionView *mCollectionView;
+@property (nonatomic, strong)NSMutableArray *mDataSourceArray;
+@property (nonatomic, strong)NSMutableArray *mDateArray;
 
 @end
 
@@ -28,28 +28,36 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self  = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         self.leftBtn = nil;
         self.rightBtn = nil;
         self.returnAction = @selector(backAction:);
         self.doneAction = @selector(doneAction:);
         self.navTitle = [[Language sharedLanguage]stringForKey:@"myPhotoLibrary"];
+        self.mDataSourceArray = [[NSMutableArray alloc]init];
         
-        self.dataSourceArray =  [NSMutableArray arrayWithObjects:@[[UIImage imageNamed:@"imageSource/1.jpg"], [UIImage imageNamed:@"imageSource/2.jpg"],[UIImage imageNamed:@"imageSource/3.jpg"],[UIImage imageNamed:@"imageSource/4.jpg"],[UIImage imageNamed:@"imageSource/5.jpg"],[UIImage imageNamed:@"imageSource/6.jpg"],[UIImage imageNamed:@"imageSource/7.jpg"],[UIImage imageNamed:@"imageSource/8.jpg"],[UIImage imageNamed:@"imageSource/9.jpg"],[UIImage imageNamed:@"imageSource/10.jpg"],[UIImage imageNamed:@"imageSource/11.jpg"],[UIImage imageNamed:@"imageSource/12.jpg"],[UIImage imageNamed:@"imageSource/13.jpg"]],@[[UIImage imageNamed:@"imageSource/1.jpg"], [UIImage imageNamed:@"imageSource/2.jpg"],[UIImage imageNamed:@"imageSource/3.jpg"],[UIImage imageNamed:@"imageSource/4.jpg"],[UIImage imageNamed:@"imageSource/5.jpg"],[UIImage imageNamed:@"imageSource/6.jpg"],[UIImage imageNamed:@"imageSource/7.jpg"],[UIImage imageNamed:@"imageSource/8.jpg"],[UIImage imageNamed:@"imageSource/9.jpg"],[UIImage imageNamed:@"imageSource/10.jpg"],[UIImage imageNamed:@"imageSource/11.jpg"],[UIImage imageNamed:@"imageSource/12.jpg"],[UIImage imageNamed:@"imageSource/13.jpg"]],nil];
-        self.dateArray = [NSMutableArray arrayWithObjects:@[[NSDate date]],[NSDate date], nil];
+        NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"ImageSource"];
+        NSError *error = nil;
+        NSArray *fileNameArray = [[NSFileManager defaultManager]subpathsOfDirectoryAtPath:path error:&error];
+        for (NSInteger i = 0; i < [fileNameArray count]; i++) {
+            UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",path,[fileNameArray objectAtIndex:i]]];
+            [self.mDataSourceArray addObject:image];
+        }
+        self.mDateArray = [NSMutableArray arrayWithObjects:@[[NSDate date]],[NSDate date], nil];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    self.didSetupConstraints = nil;
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view insertSubview:self.collectionView belowSubview:self.navBar];
+    [self.view addSubview:self.mCollectionView];
     
     [self.view setNeedsUpdateConstraints];
 }
@@ -57,11 +65,12 @@
 
 - (void)updateViewConstraints
 {
-    if (!self.didSetupConstraints) {
-        [self.collectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:0];
-        [self.collectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
-        [self.collectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
-        [self.collectionView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
+    if (!self.didSetupConstraints)
+    {
+        [self.mCollectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:0];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         
         self.didSetupConstraints = YES;
     }
@@ -70,30 +79,69 @@
 }
 
 #pragma mark --getter--
-- (UICollectionView *)collectionView
+- (UICollectionView *)mCollectionView
 {
-    if (!_collectionView) {
+    if (!_mCollectionView)
+    {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         [layout setHeaderReferenceSize:CGSizeMake(DEVIECE_MAINFRAME.size.width, 40)];
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-        _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor whiteColor];
-        _collectionView.scrollEnabled = YES;
-        [_collectionView setScrollsToTop:YES];
-        [_collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCellIdentifier"];
-        [_collectionView registerClass:[CollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier"];
+        layout.itemSize = CGSizeMake((DEVIECE_MAINFRAME.size.width-45)/3 , (DEVIECE_MAINFRAME.size.width-45)/3 );
+        _mCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+        _mCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+        _mCollectionView.dataSource = self;
+        _mCollectionView.delegate = self;
+        _mCollectionView.backgroundColor = [UIColor whiteColor];
+        _mCollectionView.scrollEnabled = YES;
+        [_mCollectionView setScrollsToTop:YES];
+        [_mCollectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCellIdentifier"];
+        [_mCollectionView registerClass:[CollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier"];
         
     }
-    return _collectionView;
+    return _mCollectionView;
 }
 
 
+#pragma mark --Collection View Data Source --
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.mDataSourceArray count];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVIECE_MAINFRAME.size.width, 40)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    UILabel *dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, DEVIECE_MAINFRAME.size.width/3, 40)];
+    dateLabel.text = [MyPhotoLibViewController getDateFromDate:[self.mDateArray objectAtIndex:indexPath.section]];
+    [headerView addSubview:dateLabel];
+    
+    UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier" forIndexPath:indexPath];
+    [reusableView addSubview:headerView];
+    return reusableView;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *collectionCellID = @"CollectionCellIdentifier";
+    CollectionViewCell *cell = (CollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:collectionCellID forIndexPath:indexPath];
+    [cell sizeToFit];
+    
+    UIImage *image  = [self.mDataSourceArray objectAtIndex:indexPath.row];
+    cell.imageView.image = image;
+    return cell;
+}
+
+#pragma mark -- CollectionView Delegate--
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((DEVIECE_MAINFRAME.size.width-40)/3, (DEVIECE_MAINFRAME.size.width-40)/3);
+    return CGSizeMake((DEVIECE_MAINFRAME.size.width-45)/3, (DEVIECE_MAINFRAME.size.width-45)/3);
 }
 
 
@@ -112,55 +160,21 @@
     return 10;
 }
 
-
-#pragma mark --Collection View Data Source --
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [[self.dataSourceArray objectAtIndex:section]count];
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return self.dataSourceArray.count;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVIECE_MAINFRAME.size.width, 40)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    UILabel *dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, DEVIECE_MAINFRAME.size.width/3, 40)];
-    dateLabel.text = [MyPhotoLibViewController getDateFromDate:[self.dateArray objectAtIndex:indexPath.section]];
-    [headerView addSubview:dateLabel];
-    
-    UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier" forIndexPath:indexPath];
-    [reusableView addSubview:headerView];
-    return reusableView;
-}
-
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *collectionCellID = @"CollectionCellIdentifier";
-    CollectionViewCell *cell = (CollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:collectionCellID forIndexPath:indexPath];
-    [cell sizeToFit];
-    
-    UIImage *image  = [self.dataSourceArray[indexPath.section] objectAtIndex:indexPath.row];
-    cell.imageView.image = image;
-    return cell;
-}
-
-#pragma mark -- CollectionView Delegate--
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    ShowPhotoViewController *showPhotoVC = [[ShowPhotoViewController alloc]initWithNibName:nil bundle:nil];
-//    [showPhotoVC.dataSourceArray setArray:self.dataSourceArray[indexPath.section]];
-//    showPhotoVC.currectIndex = indexPath.row;
-//    if (self.navigationController) {
-//        [self.navigationController pushViewController:showPhotoVC animated:YES];
-//    }
-//    else{
-//        [self presentViewController:showPhotoVC animated:YES completion:nil];
-//    }
+    ShowPhotoViewController *showPhotoVC = [[ShowPhotoViewController alloc]initWithNibName:nil bundle:nil];
+    [showPhotoVC.dataSourceArray setArray:self.mDataSourceArray];
+    showPhotoVC.currectIndex = indexPath.row;
+    showPhotoVC.currectGroupName = self.navTitle;
+    showPhotoVC.isAppSourceImage = YES;
+    if (self.navigationController)
+    {
+        [self.navigationController pushViewController:showPhotoVC animated:YES];
+    }
+    else
+    {
+        [self presentViewController:showPhotoVC animated:YES completion:nil];
+    }
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -171,10 +185,12 @@
 #pragma mark --Action funtion--
 - (void)backAction:(id)sender
 {
-    if (self.navigationController) {
+    if (self.navigationController)
+    {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else{
+    else
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -194,7 +210,7 @@
     NSInteger year=[conponent year];
     NSInteger month=[conponent month];
     NSInteger day=[conponent day];
-    NSString * nsDateString= [NSString stringWithFormat:@"%ld年-%ld月-%ld日",year,month,day];
+    NSString * nsDateString= [NSString stringWithFormat:@"%ld年-%ld月-%ld日",(long)year,(long)month,(long)day];
     return nsDateString;
 }
 

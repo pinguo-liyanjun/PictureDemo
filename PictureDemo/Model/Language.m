@@ -45,6 +45,14 @@ static Language *sharedLanguageInstance = nil;
         [zh_cn setObject:@"编辑" forKey:@"edit"];
         [zh_cn setObject:@"我的相册" forKey:@"myPhotoLibrary"];
         [zh_cn setObject:@"其他相册" forKey:@"otherPhotoLibrary"];
+        [zh_cn setObject:@"相册" forKey:@"photoLibrary"];
+        [zh_cn setObject:@"取消" forKey:@"cancel"];
+        [zh_cn setObject:@"确定" forKey:@"ok"];
+        [zh_cn setObject:@"保存" forKey:@"save"];
+        
+        [zh_cn setObject:@"圆形" forKey:@"circle"];
+        [zh_cn setObject:@"矩形" forKey:@"rectangle"];
+        [zh_cn setObject:@"混合" forKey:@"circle_rectangle"];
         
         _languageArray = [[NSArray alloc]initWithObjects:zh_cn, nil];
     }

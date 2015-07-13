@@ -16,10 +16,10 @@
 
 @interface OtherPhotoLibViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property(nonatomic, strong)UITableView *tableView;
-@property(nonatomic, strong)NSMutableArray *dataSourceArray;
-@property(nonatomic, strong)NSMutableArray *photoLibNameArray;
-@property(nonatomic, strong)ALAssetsLibrary *assetsLibrary;
+@property (nonatomic, strong)UITableView *mTableView;
+@property (nonatomic, strong)NSMutableArray *mDataSourceArray;
+@property (nonatomic, strong)NSMutableArray *mPhotoLibNameArray;
+@property (nonatomic, strong)ALAssetsLibrary *mAssetsLibrary;
 
 
 @end
@@ -30,7 +30,8 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self  = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         self.leftBtn = nil;
         self.rightBtn = nil;
         
@@ -39,9 +40,9 @@
         
         self.navTitle = [[Language sharedLanguage]stringForKey:@"otherPhotoLibrary"];
         
-        self.dataSourceArray = [[NSMutableArray alloc]init];
-        self.photoLibNameArray = [[NSMutableArray alloc]init];
-        self.assetsLibrary = [[ALAssetsLibrary alloc] init];
+        self.mDataSourceArray = [[NSMutableArray alloc]init];
+        self.mPhotoLibNameArray = [[NSMutableArray alloc]init];
+        self.mAssetsLibrary = [[ALAssetsLibrary alloc] init];
     }
     return self;
 }
@@ -49,7 +50,7 @@
 
 - (void)dealloc
 {
-    self.didSetupConstraints = nil;
+   
 }
 
 - (void)viewDidLoad
@@ -57,7 +58,7 @@
     [super viewDidLoad];
     
    
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.mTableView];
     
     [self getPhotoLibInfo];
     
@@ -66,11 +67,12 @@
 
 - (void)updateViewConstraints
 {
-    if (!self.didSetupConstraints) {
-        [self.tableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:5];
-        [self.tableView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
-        [self.tableView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
-        [self.tableView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
+    if (!self.didSetupConstraints)
+    {
+        [self.mTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:5];
+        [self.mTableView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
+        [self.mTableView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
+        [self.mTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
         
         self.didSetupConstraints = YES;
     }
@@ -79,19 +81,20 @@
 }
 
 #pragma mark --getter--
-- (UITableView *)tableView
+- (UITableView *)mTableView
 {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_tableView setScrollEnabled:YES];
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.backgroundView = nil;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+    if (!_mTableView)
+    {
+        _mTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _mTableView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_mTableView setScrollEnabled:YES];
+        _mTableView.backgroundColor = [UIColor clearColor];
+        _mTableView.backgroundView = nil;
+        _mTableView.delegate = self;
+        _mTableView.dataSource = self;
 
     }
-    return _tableView;
+    return _mTableView;
 }
 
 
@@ -103,7 +106,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataSourceArray count];
+    return [self.mDataSourceArray count];
 }
 
 #pragma mark --TableView Delegate funtion--
@@ -117,11 +120,12 @@
 {
     NSString *reusedIdentifier = [NSString stringWithFormat:@"CellReusedIdentifier"];
     TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:reusedIdentifier];
-    if (!cell) {
+    if (!cell)
+    {
         cell = [[TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusedIdentifier];
     }
     
-    ALAssetsGroup *group = (ALAssetsGroup *)[self.dataSourceArray objectAtIndex:indexPath.row];
+    ALAssetsGroup *group = (ALAssetsGroup *)[self.mDataSourceArray objectAtIndex:indexPath.row];
     cell.posterImageView.image = [UIImage imageWithCGImage:[group posterImage]];
     cell.titleLabel.text = [group valueForProperty:ALAssetsGroupPropertyName];
     cell.photoCountLabel.text = [NSString stringWithFormat:@"%ld",(long)[group numberOfAssets]];
@@ -135,12 +139,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     SelectPhotoFromLibViewController *selectPhotoVC = [[SelectPhotoFromLibViewController alloc]initWithNibName:nil bundle:nil];
-    ALAssetsGroup *group = (ALAssetsGroup *)[self.dataSourceArray objectAtIndex:indexPath.row];
+    ALAssetsGroup *group = (ALAssetsGroup *)[self.mDataSourceArray objectAtIndex:indexPath.row];
     selectPhotoVC.navTitle = [group valueForProperty:ALAssetsGroupPropertyName];
-    if (self.navigationController) {
+    if (self.navigationController)
+    {
         [self.navigationController pushViewController:selectPhotoVC animated:YES];
     }
-    else{
+    else
+    {
         [self presentViewController:selectPhotoVC animated:YES completion:nil];
     }
 }
@@ -148,35 +154,37 @@
 #pragma mark --action funtion--
 - (void)backAction:(id)sender
 {
-    if (self.navigationController) {
+    if (self.navigationController)
+    {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else{
+    else
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 #pragma mark --help function--
-- (void)getPhotoLibInfo{
-    
+- (void)getPhotoLibInfo
+{    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.photoLibNameArray removeAllObjects];
+        [self.mPhotoLibNameArray removeAllObjects];
         ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
             ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
             [group setAssetsFilter:onlyPhotosFilter];
             if ([group numberOfAssets] > 0)
             {
-                [self.dataSourceArray addObject:group];
+                [self.mDataSourceArray addObject:group];
             }
             else
             {
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                [self.mTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             }
         };
         
         NSUInteger groupTypes = ALAssetsGroupAll ;
         
-        [self.assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:^(NSError *error) {
+        [self.mAssetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:^(NSError *error) {
             NSLog(@"Group not found!\n");
         }];
 

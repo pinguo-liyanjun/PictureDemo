@@ -10,9 +10,9 @@
 
 @interface TableViewCell : UITableViewCell
 
-@property(strong, nonatomic)UIImageView *posterImageView;
-@property(strong, nonatomic)UILabel *titleLabel;
-@property(strong, nonatomic)UILabel *photoCountLabel;
-@property(strong, nonatomic)UIImageView *accessImageView;
+@property (strong, nonatomic)UIImageView *posterImageView;
+@property (strong, nonatomic)UILabel *titleLabel;
+@property (strong, nonatomic)UILabel *photoCountLabel;
+@property (strong, nonatomic)UIImageView *accessImageView;
 
 @end

@@ -11,42 +11,45 @@
 #import "Default.h"
 #import "CollectionViewCell.h"
 #import "EditPhotoViewController.h"
+#import "Language.h"
+#import "PureLayout.h"
 
-@interface ShowPhotoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface ShowPhotoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-@property(strong, nonatomic) UICollectionView *collectionView;
-@property(strong, nonatomic) ALAssetsLibrary *assetLibrary;
-
+@property (strong, nonatomic) UICollectionView *mCollectionView;
+@property (strong, nonatomic) ALAssetsLibrary *mAssetLibrary;
+@property (strong, nonatomic) UIImage *mCurrectImage;
 @end
 
 @implementation ShowPhotoViewController
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
+    if (self)
+    {
         self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        [self.leftBtn setFrame:CGRectMake(0, 0, 50, NAVIGATIONBAR_HEIGHT)];
-        [self.leftBtn setTitle:@"相册" forState:UIControlStateNormal];
-        [self.leftBtn setTitle:@"相册" forState:UIControlStateHighlighted];
+        [self.leftBtn setTitle:[[Language sharedLanguage] stringForKey:@"photoLibrary"] forState:UIControlStateNormal];
+        [self.leftBtn setTitle:[[Language sharedLanguage] stringForKey:@"photoLibrary"] forState:UIControlStateHighlighted];
         [self.leftBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.leftBtn setTitleColor:[[UIColor yellowColor]colorWithAlphaComponent:.8] forState:UIControlStateHighlighted];
+        [self.leftBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
         
         self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.rightBtn setFrame:CGRectMake(0, 0, 50, NAVIGATIONBAR_HEIGHT)];
-        [self.rightBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [self.rightBtn setTitle:@"编辑" forState:UIControlStateHighlighted];
+        [self.rightBtn setTitle:[[Language sharedLanguage] stringForKey:@"edit"] forState:UIControlStateNormal];
+        [self.rightBtn setTitle:[[Language sharedLanguage] stringForKey:@"edit"] forState:UIControlStateHighlighted];
         [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.rightBtn setTitleColor:[[UIColor yellowColor]colorWithAlphaComponent:.8] forState:UIControlStateHighlighted];
+        [self.rightBtn addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
         
         self.dataSourceArray = [[NSMutableArray alloc]init];
         
         self.returnAction = @selector(backAction:);
         self.doneAction = @selector(doneAction:);
-        
+        self.mAssetLibrary = [[ALAssetsLibrary alloc]init];
+        self.needSpeciallyLeftBtn = YES;
+        self.needSpeciallyRightBtn = YES;
     }
     return self;
 }
@@ -59,39 +62,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if(!self.isAppSourceImage){
+        [self getPhotographImageByGroupName:self.currectGroupName currectImageIndex:self.currectIndex];
+    }
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [layout setHeaderReferenceSize:CGSizeMake(DEVIECE_MAINFRAME.size.width, 40)];
-    layout.itemSize = CGSizeMake(DEVIECE_MAINFRAME.size.width-10, DEVIECE_MAINFRAME.size.width-10);
-    layout.minimumLineSpacing = 5;
-    layout.minimumInteritemSpacing = 5;
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(self.navBar.frame), DEVIECE_MAINFRAME.size.width-10, DEVIECE_MAINFRAME.size.height-CGRectGetHeight(self.navBar.frame)-60) collectionViewLayout:layout];
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-    self.collectionView.scrollEnabled = NO;
-    [self.collectionView setScrollsToTop:YES];
+    [self.view addSubview:self.mCollectionView];
+    [self.view setNeedsUpdateConstraints];
     
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCellIdentifier"];
-    [self.collectionView registerClass:[CollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier"];
-
-    [self.view insertSubview:self.collectionView belowSubview:self.navBar];
-    
-    self.assetLibrary = [[ALAssetsLibrary alloc]init];
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeFrom:)];
-    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.collectionView addGestureRecognizer:swipeLeft];
-
-    
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeFrom:)];
-    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.collectionView addGestureRecognizer:swipeRight];
-    
-    NSString *navTitle = [NSString stringWithFormat:@"%ld/%ld",self.currectIndex+1,[self.dataSourceArray count]];
+    NSString *navTitle = [NSString stringWithFormat:@"%d/%ld",self.currectIndex+1,(unsigned long)[self.dataSourceArray count]];
     [self updateNavTitle:navTitle];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self performSelectorOnMainThread:@selector(collectionViewScrollToIndexPath:) withObject:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] waitUntilDone:NO];
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,8 +85,57 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark --getter--
+- (void)updateViewConstraints
+{
+    if (!self.didSetupConstraints)
+    {
+        [self.leftBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
+        [self.leftBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+        [self.leftBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
+        
+        [self.rightBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10];
+        [self.rightBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+        [self.rightBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
+        
+        [self.mCollectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:0];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
+        [self.mCollectionView autoSetDimension:ALDimensionHeight toSize:DEVIECE_MAINFRAME.size.height-NAVIGATIONBAR_HEIGHT];
+        self.didSetupConstraints = YES;
+    
+    }
+    [super updateViewConstraints];
+}
 
+#pragma mark --getter--
+- (UICollectionView *)mCollectionView
+{
+    if (!_mCollectionView)
+    {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        [layout setHeaderReferenceSize:CGSizeMake(0, 0)];
+        layout.itemSize = CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.width-10);
+        _mCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+        _mCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+        _mCollectionView.dataSource = self;
+        _mCollectionView.delegate = self;
+        _mCollectionView.backgroundColor = [UIColor lightGrayColor];
+        _mCollectionView.scrollEnabled = NO;
+        [_mCollectionView setScrollsToTop:YES];
+        [_mCollectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCellIdentifier"];
+        [_mCollectionView registerClass:[CollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier"];
+        
+        UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeFrom:)];
+        [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+        [_mCollectionView addGestureRecognizer:swipeLeft];
+        
+        UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeFrom:)];
+        [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+        [_mCollectionView addGestureRecognizer:swipeRight];
+    }
+    return _mCollectionView;
+}
 
 
 #pragma mark --Collection View Data Source --
@@ -115,33 +150,46 @@
     return 1;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVIECE_MAINFRAME.size.width, 40)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    UILabel *dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, DEVIECE_MAINFRAME.size.width/3, 40)];
-    dateLabel.text = @"";
-    [headerView addSubview:dateLabel];
-    
-    UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier" forIndexPath:indexPath];
-    [reusableView addSubview:headerView];
-    return reusableView;
-}
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *collectionCellID = @"CollectionCellIdentifier";
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:collectionCellID forIndexPath:indexPath];
     [cell sizeToFit];
-    
-//    UIImage *image  = [self.dataSourceArray objectAtIndex:indexPath.row];
-//    cell.imageView.image = image;
-    cell.imageView.image = [self addImage:self.dataSourceArray[0] toImage:self.dataSourceArray[5]];
-    
+    if (self.isAppSourceImage)
+    {
+        cell.imageView.image = [self.dataSourceArray objectAtIndex:indexPath.row];
+    }
+    else{
+        cell.imageView.image = self.mCurrectImage;
+    }
+   
     return cell;
 }
 
 #pragma mark -- CollectionView Delegate--
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.width-10);
+}
+
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 5, 5, 5);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 10;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 10;
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -155,10 +203,12 @@
 #pragma mark --Action funtion--
 - (void)backAction:(id)sender
 {
-    if (self.navigationController) {
+    if (self.navigationController)
+    {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else{
+    else
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -166,41 +216,80 @@
 - (void)doneAction:(id)sender
 {
     EditPhotoViewController *editVC = [[EditPhotoViewController alloc]initWithNibName:nil bundle:nil];
-    editVC.currectImage = [self.dataSourceArray objectAtIndex:self.currectIndex];
+    if (self.isAppSourceImage)
+    {
+         editVC.currectImage = [self.dataSourceArray objectAtIndex:self.currectIndex];
+    }
+    else
+    {
+        editVC.currectImage = self.mCurrectImage;
+    }
+    
     [self presentViewController:editVC animated:YES completion:nil];
 }
 
 - (void)swipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
-    if(recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        if (self.currectIndex == [self.dataSourceArray count] - 1) {
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        }else{
+    if(recognizer.direction == UISwipeGestureRecognizerDirectionLeft)
+    {
+        if (self.currectIndex == [self.dataSourceArray count] - 1)
+        {
+            [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            if (!self.isAppSourceImage)
+            {
+                [self getPhotographImageByGroupName:self.currectGroupName currectImageIndex:(self.currectIndex)];
+            }
+        }
+        else
+        {
             self.currectIndex += 1;
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            if (!self.isAppSourceImage)
+            {
+                [self getPhotographImageByGroupName:self.currectGroupName currectImageIndex:(self.currectIndex)];
+            }
         }
     }
     else if (recognizer.direction == UISwipeGestureRecognizerDirectionRight)
     {
-        if (self.currectIndex == 0) {
-             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        }else{
+        if (self.currectIndex == 0)
+        {
+             [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            if (!self.isAppSourceImage)
+            {
+                [self getPhotographImageByGroupName:self.currectGroupName currectImageIndex:(self.currectIndex)];
+            }
+        }
+        else
+        {
             self.currectIndex -= 1;
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            if (!self.isAppSourceImage)
+            {
+                [self getPhotographImageByGroupName:self.currectGroupName currectImageIndex:(self.currectIndex)];
+            }
         }
     }
     
-    NSString *navTitle = [NSString stringWithFormat:@"%ld/%ld",self.currectIndex+1,[self.dataSourceArray count]];
+    NSString *navTitle = [NSString stringWithFormat:@"%d/%ld",self.currectIndex+1,(unsigned long)[self.dataSourceArray count]];
     [self updateNavTitle:navTitle];
 }
 
 #pragma mark --help function--
+- (void)collectionViewScrollToIndexPath:(NSIndexPath *)indexPath
+{
+     [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+}
+
 
 - (void)updateNavTitle:(NSString *)navtitle
 {
-    if (self.navBar) {
-        for (UIView *view in [self.navBar subviews]) {
-            if ([view isKindOfClass:[UILabel class]] && view.tag == 999) {
+    if (self.navBar)
+    {
+        for (UIView *view in [self.navBar subviews])
+        {
+            if ([view isKindOfClass:[UILabel class]] && view.tag == 999)
+            {
                 UILabel *titleLabel = (UILabel *)view;
                 titleLabel.text = navtitle;
             }
@@ -208,33 +297,31 @@
     }
 }
 
-- (UIImage *)addImage:(UIImage *)image1 toImage:(UIImage *)image2 {
-    
-    
-    UIGraphicsBeginImageContext(image1.size);
-    
-//    [image1 drawInRect:CGRectMake(0, 0, image1.size.width, image1.size.height)];
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 2.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGRect rectangle = CGRectMake(0,0,self.collectionView.frame.size.width,self.collectionView.frame.size.height);
-    CGContextAddRect(context, rectangle);
-    CGContextStrokePath(context);
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-    CGContextFillRect(context, rectangle);
-    
-    UIColor *color = [UIColor redColor];
-    CGContextSetFillColorWithColor(context, color.CGColor);
-    CGContextSetLineWidth(context, 0);
-    CGContextAddArc(context, 200, 150, 150, 0, 2*M_PI, 0);
-    CGContextDrawPath(context, kCGPathFillStroke);
-
-   
-//    [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
-    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return resultingImage;
+- (void)getPhotographImageByGroupName:(NSString *)groupName currectImageIndex:(NSInteger)currectImageIndex
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+            ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+            [group setAssetsFilter:onlyPhotosFilter];
+            if (group.numberOfAssets > 0 && [[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:groupName]){
+                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                    if (result && index == currectImageIndex) {
+                        self.mCurrectImage = [UIImage imageWithCGImage:result.defaultRepresentation.fullScreenImage];
+                       [self.mCollectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                        return;
+                    }
+                }];
+            }
+        };
+        
+        NSUInteger groupTypes = ALAssetsGroupAll ;
+        [assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:^(NSError *error) {
+            NSLog(@"Group not found!\n");
+        }];
+        
+    });
 }
+
 
 @end

@@ -10,7 +10,8 @@
 
 @interface ShowPhotoViewController : BaseViewController
 
-@property(strong, nonatomic)NSMutableArray *dataSourceArray;
-@property(assign, nonatomic)NSInteger currectIndex;
-
+@property (strong, nonatomic)NSMutableArray *dataSourceArray;
+@property (assign, nonatomic)NSInteger currectIndex;
+@property (strong, nonatomic)NSString *currectGroupName;
+@property (assign, nonatomic)BOOL isAppSourceImage;
 @end

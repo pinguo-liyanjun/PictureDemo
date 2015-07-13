@@ -1,21 +1,21 @@
 //
-//  EditCollectionViewCell.m
+//  StickerPhotographTypeCell.m
 //  PictureDemo
 //
-//  Created by C360_liyanjun on 15/7/6.
+//  Created by C360_liyanjun on 15/7/13.
 //  Copyright (c) 2015年 C360_liyanjun. All rights reserved.
 //
 
-#import "EditCollectionViewCell.h"
+#import "StickerPhotographTypeCell.h"
 #import "PureLayout.h"
 
-@interface EditCollectionViewCell ()
+@interface StickerPhotographTypeCell ()
 
 @property (assign, nonatomic)BOOL mDidSetupConstraints;
 
 @end
 
-@implementation EditCollectionViewCell
+@implementation StickerPhotographTypeCell
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -37,7 +37,7 @@
 
 - (void)dealloc
 {
-    
+   
 }
 
 
@@ -90,24 +90,13 @@
 {
     [super touchesBegan:touches withEvent:event];
     
-    self.titleLabel.textColor = [UIColor clearColor];
-    if (self.imageDic && [[self.imageDic allKeys] containsObject:@"EditTypeImagePress"])
-    {
-        self.imageView.image = [self.imageDic objectForKey:@"EditTypeImagePress"];
-        self.titleLabel.textColor = [UIColor yellowColor];
-    }
+   
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
     
-    self.titleLabel.textColor = [UIColor whiteColor];
-    if (self.imageDic && [[self.imageDic allKeys] containsObject:@"EditTypeImageNormal"])
-    {
-        self.imageView.image = [self.imageDic objectForKey:@"EditTypeImageNormal"];
-        self.titleLabel.textColor = [UIColor whiteColor];
-    }
 }
 
 @end

@@ -11,17 +11,18 @@
 
 @interface CollectionViewCell ()
 
-@property(assign, nonatomic)BOOL didSetupConstraits;
+@property (assign, nonatomic)BOOL mDidSetupConstraints;
 
 @end
 
 @implementation CollectionViewCell
 
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self){
+    if (self)
+    {
         [self addSubview:self.imageView];
         
         [self addSubview:self.selecetImageView];
@@ -35,20 +36,20 @@
 
 - (void)dealloc
 {
-    self.isSeleceted = nil;
-    self.didSetupConstraits = nil;
+    
 }
 
 - (void)updateConstraints
 {
-    if (!self.didSetupConstraits) {
+    if (!self.mDidSetupConstraints)
+    {
         [self.imageView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         
         [self.selecetImageView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
         [self.selecetImageView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
         [self.selecetImageView autoSetDimensionsToSize:CGSizeMake(20, 20)];
         
-        self.didSetupConstraits = YES;
+        self.mDidSetupConstraints = YES;
     }
     [super updateConstraints];
 }
@@ -57,17 +58,20 @@
 #pragma mark --getter--
 - (UIImageView *)imageView
 {
-    if (!_imageView) {
+    if (!_imageView)
+    {
         _imageView = [[UIImageView alloc]initForAutoLayout];
-        _imageView.backgroundColor = [UIColor whiteColor];
+        _imageView.backgroundColor = [UIColor clearColor];
     }
     return _imageView;
 }
 
 - (UIImageView *)selecetImageView
 {
-    if (!_selecetImageView) {
+    if (!_selecetImageView)
+    {
         _selecetImageView = [[UIImageView alloc]initForAutoLayout];
+        _selecetImageView.backgroundColor = [UIColor clearColor];
     }
     return _selecetImageView;
 }

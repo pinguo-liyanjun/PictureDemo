@@ -213,4 +213,171 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     return newImage;
 }
 
+
+
++ (UIImage *)circleImageWithName:(UIImage *)image circleCenter:(CGPoint)center circleRadius:(CGFloat)radius  borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor
+{
+    UIImage *originImage = image;
+    
+    // 开启上下文
+    CGFloat imageW = originImage.size.width + borderWidth;
+    CGFloat imageH = originImage.size.height + borderWidth;
+    CGSize imageSize = CGSizeMake(imageW, imageH);
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+    
+    // 取得当前的上下文,这里得到的就是上面刚创建的那个图片上下文
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    // 画边框(大圆)
+    [borderColor set];
+    CGFloat bigRadius = radius; // 大圆半径
+    CGFloat centerX = center.x; // 圆心
+    CGFloat centerY = center.y;
+    CGContextAddArc(ctx, centerX, centerY, bigRadius, 0, M_PI * 2, 0);
+    CGContextFillPath(ctx); // 画圆。As a side effect when you call this function, Quartz clears the current path.
+    
+    // 小圆
+    CGFloat smallRadius = bigRadius - borderWidth;
+    CGContextAddArc(ctx, centerX, centerY, smallRadius, 0, M_PI * 2, 0);
+    // 裁剪(后面画的东西才会受裁剪的影响)
+    CGContextClip(ctx);
+    
+    // 画图
+    [originImage drawInRect:CGRectMake(borderWidth, borderWidth, originImage.size.width, originImage.size.height)];
+    
+    // 取图
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // 结束上下文
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+
++ (UIImage *)circleImageWithName:(UIImage *)image borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor
+{
+    UIImage *originImage = image;
+    
+    // 开启上下文
+    CGFloat imageW = originImage.size.width + borderWidth;
+    CGFloat imageH = originImage.size.height + borderWidth;
+    CGSize imageSize = CGSizeMake(imageW, imageH);
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+    
+    // 取得当前的上下文,这里得到的就是上面刚创建的那个图片上下文
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    // 画边框(大圆)
+    [borderColor set];
+    CGFloat bigRadius = imageW / 2; // 大圆半径
+    CGFloat centerX = bigRadius; // 圆心
+    CGFloat centerY = bigRadius;
+    CGContextAddArc(ctx, centerX, centerY, bigRadius, 0, M_PI * 2, 0);
+    CGContextFillPath(ctx); // 画圆。As a side effect when you call this function, Quartz clears the current path.
+    
+    // 小圆
+    CGFloat smallRadius = bigRadius - borderWidth;
+    CGContextAddArc(ctx, centerX, centerY, smallRadius, 0, M_PI * 2, 0);
+    // 裁剪(后面画的东西才会受裁剪的影响)
+    CGContextClip(ctx);
+    
+    // 画图
+    [originImage drawInRect:CGRectMake(borderWidth, borderWidth, originImage.size.width, originImage.size.height)];
+    
+    // 取图
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // 结束上下文
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
++ (UIImage *)rectangleImageWithName:(UIImage *)image andWithFrame:(CGRect)rect borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor
+{
+    UIImage *originImage = image;
+    
+    CGFloat imageW = originImage.size.width + borderWidth;
+    CGFloat imageH = originImage.size.height + borderWidth;
+    CGSize imageSize = CGSizeMake(imageW, imageH);
+    
+    //开启上下文
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+    
+    //获取上下文
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    //画矩形边框
+    [borderColor set];
+    CGContextAddRect(ctx, rect);
+    CGContextFillPath(ctx);
+    
+    //画个小矩形区域
+    CGContextAddRect(ctx, CGRectMake(rect.origin.x+borderWidth, rect.origin.y+borderWidth, rect.size.width - 2*borderWidth, rect.size.height - 2*borderWidth));
+    
+    //剪切
+    CGContextClip(ctx);
+    
+    //画图
+    [originImage drawInRect:CGRectMake(0, 0, originImage.size.width, originImage.size.height)];
+    
+    //获取图片
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //结束上下文
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
++ (UIImage *)circleAndRectangleImageWithName:(UIImage *)image circleCenter:(CGPoint)center circleRadius:(CGFloat)radius frame:(CGRect)rect borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor
+{
+    UIImage *originImage = image;
+    
+    CGFloat imageW = originImage.size.width + borderWidth;
+    CGFloat imageH = originImage.size.height + borderWidth;
+    CGSize imageSize = CGSizeMake(imageW, imageH);
+    
+    //开启上下文
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+    
+    //获取上下文
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+   
+    // 画边框(大圆)
+    [borderColor set];
+    CGFloat bigRadius = radius; // 大圆半径
+    CGFloat centerX = center.x; // 圆心
+    CGFloat centerY = center.y;
+    CGContextAddArc(ctx, centerX, centerY, bigRadius, 0, M_PI * 2, 0);
+    CGContextFillPath(ctx); // 画圆。As a side effect when you call this function, Quartz clears the current path.
+    
+    //画矩形边框
+    [borderColor set];
+    CGContextAddRect(ctx, rect);
+    CGContextFillPath(ctx);
+    
+    //画个小矩形区域
+    CGContextAddRect(ctx, CGRectMake(rect.origin.x+borderWidth, rect.origin.y+borderWidth, rect.size.width - 2*borderWidth, rect.size.height - 2*borderWidth));
+  
+    // 小圆
+    CGFloat smallRadius = bigRadius - borderWidth;
+    CGContextAddArc(ctx, centerX, centerY, smallRadius, 0, M_PI * 2, 0);
+    // 裁剪(后面画的东西才会受裁剪的影响)
+    CGContextClip(ctx);
+    
+    //画图
+    [originImage drawInRect:CGRectMake(0, 0, originImage.size.width, originImage.size.height)];
+    
+    //获取图片
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //结束上下文
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+
 @end

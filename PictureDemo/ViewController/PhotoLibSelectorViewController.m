@@ -11,22 +11,23 @@
 
 @implementation PhotoLibSelectorViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         MyPhotoLibViewController *myPhotoLibVC = [[MyPhotoLibViewController alloc]initWithNibName:nil bundle:nil];
         myPhotoLibVC.tabBarItem.title = [[Language sharedLanguage]stringForKey:@"myPhotoLibrary"];
-        myPhotoLibVC.tabBarItem.image = [UIImage imageNamed:@"image/camera_normal"];
-        myPhotoLibVC.tabBarItem.selectedImage = [UIImage imageNamed:@"image/camera_press"];
+        myPhotoLibVC.tabBarItem.image = [UIImage imageNamed:@"camera_normal"];
+        myPhotoLibVC.tabBarItem.selectedImage = [UIImage imageNamed:@"camera_press"];
         
         OtherPhotoLibViewController *otherPhotoLibVC = [[OtherPhotoLibViewController alloc]initWithNibName:nil bundle:nil];
         otherPhotoLibVC.tabBarItem.title = [[Language sharedLanguage]stringForKey:@"otherPhotoLibrary"];
-        otherPhotoLibVC.tabBarItem.image = [UIImage imageNamed:@"image/homepage_normal"];
-        otherPhotoLibVC.tabBarItem.selectedImage = [UIImage imageNamed:@"iamge/homepage_press"];
+        otherPhotoLibVC.tabBarItem.image = [UIImage imageNamed:@"homepage_normal"];
+        otherPhotoLibVC.tabBarItem.selectedImage = [UIImage imageNamed:@"homepage_press"];
         
         self.viewControllers = @[myPhotoLibVC,otherPhotoLibVC];
-        UIImage *image = [UIImage imageNamed:@"image/nav_bg"];
+        UIImage *image = [UIImage imageNamed:@"nav_bg"];
         [self.tabBar setBackgroundImage:image];
     }
     return self;

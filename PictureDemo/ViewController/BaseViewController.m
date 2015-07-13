@@ -18,8 +18,8 @@
     SEL _returnAction;
 }
 
-@property(strong, nonatomic)UIButton *backBtn;
-@property(strong, nonatomic)UIButton *doneBtn;
+@property (strong, nonatomic)UIButton *mBackBtn;
+@property (strong, nonatomic)UIButton *mDoneBtn;
 
 
 @end
@@ -30,18 +30,19 @@
 @synthesize returnAction = _returnAction;
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.needSpeciallyLeftBtn = NO;
+        self.needSpeciallyLeftBtn = NO;
     }
     return self;
 }
 
 - (void)dealloc
 {
-    self.didSetupConstraints = nil;
+    
 }
 
 - (void)viewDidLoad {
@@ -51,19 +52,27 @@
     
     [self.navigationController setNavigationBarHidden:YES];
     
-    if (_returnAction) {
-        if (self.leftBtn) {
+    if (_returnAction)
+    {
+        if (self.leftBtn)
+        {
             [self.navBar addSubview:self.leftBtn];
-        }else{
-            [self.navBar addSubview:self.backBtn];
+        }
+        else
+        {
+            [self.navBar addSubview:self.mBackBtn];
         }
     }
     
-    if (_doneAction){
-        if (self.rightBtn) {
+    if (_doneAction)
+    {
+        if (self.rightBtn)
+        {
             [self.navBar addSubview:self.rightBtn];
-        }else {
-            [self.navBar addSubview:self.doneBtn];
+        }
+        else
+        {
+            [self.navBar addSubview:self.mDoneBtn];
         }
     }
     
@@ -81,20 +90,22 @@
 
 - (void)updateViewConstraints
 {
-    [self.navBar autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+    [self.navBar autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20];
     [self.navBar autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
     [self.navBar autoSetDimensionsToSize:CGSizeMake(CGRectGetWidth(self.view.frame), NAVIGATIONBAR_HEIGHT)];
     
-    if (self.returnAction && self.backBtn) {
-        [self.backBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
-        [self.backBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
-        [self.backBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
+    if (self.returnAction && self.mBackBtn &&!self.needSpeciallyLeftBtn)
+    {
+        [self.mBackBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
+        [self.mBackBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+        [self.mBackBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
     }
     
-    if (self.doneAction && self.doneBtn) {
-        [self.doneBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10];
-        [self.doneBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
-        [self.doneBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
+    if (self.doneAction && self.mDoneBtn && !self.needSpeciallyRightBtn)
+    {
+        [self.mDoneBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10];
+        [self.mDoneBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+        [self.mDoneBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
     }
     
     [super updateViewConstraints];
@@ -104,52 +115,58 @@
 #pragma mark --getter--
 - (NavigationBar *)navBar
 {
-    if (!_navBar) {
+    if (!_navBar)
+    {
         _navBar = [[NavigationBar alloc]initForAutoLayout];
+        _navBar.backgroundColor = [UIColor blackColor];
         _navBar.titleLabel.text = self.navTitle;
     }
     return _navBar;
 }
 
-- (UIButton *)backBtn
+- (UIButton *)mBackBtn
 {
-    if (!_backBtn) {
-        _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_backBtn setBackgroundImage:[UIImage imageNamed:@"image/return_normal"] forState:UIControlStateNormal];
-        [_backBtn setBackgroundImage:[UIImage imageNamed:@"image/return_press"] forState:UIControlStateHighlighted];
-        [_backBtn addTarget:self action:@selector(backAction:)
+    if (!_mBackBtn)
+    {
+        _mBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_mBackBtn setBackgroundImage:[UIImage imageNamed:@"return_normal"] forState:UIControlStateNormal];
+        [_mBackBtn setBackgroundImage:[UIImage imageNamed:@"return_press"] forState:UIControlStateHighlighted];
+        [_mBackBtn addTarget:self action:@selector(backAction:)
            forControlEvents:UIControlEventTouchUpInside];
 
     }
-    return _backBtn;
+    return _mBackBtn;
 }
 
-- (UIButton *)doneBtn
+- (UIButton *)mDoneBtn
 {
-    if (!_doneBtn) {
-        _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_doneBtn setTitle:[[Language sharedLanguage] stringForKey:@"select"] forState:UIControlStateNormal];
-        [_doneBtn setTitle:[[Language sharedLanguage] stringForKey:@"select"] forState:UIControlStateHighlighted];
-        [_doneBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
-        [_doneBtn addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
+    if (!_mDoneBtn)
+    {
+        _mDoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_mDoneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_mDoneBtn setTitle:[[Language sharedLanguage] stringForKey:@"select"] forState:UIControlStateNormal];
+        [_mDoneBtn setTitle:[[Language sharedLanguage] stringForKey:@"select"] forState:UIControlStateHighlighted];
+        [_mDoneBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+        [_mDoneBtn addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
 
     }
-    return _doneBtn;
+    return _mDoneBtn;
 }
 
 
 #pragma mark --action funtion--
 - (void)backAction:(id)sender
 {
-    if (self.returnAction) {
+    if (self.returnAction)
+    {
         [self performSelector:self.returnAction withObject:nil];
     }
 }
 
 - (void)doneAction:(id)sender
 {
-    if (self.doneAction) {
+    if (self.doneAction)
+    {
         [self performSelector:self.doneAction withObject:nil];
     }
 }

@@ -10,8 +10,8 @@
 
 @interface CollectionViewCell : UICollectionViewCell
 
-@property(strong, nonatomic)UIImageView *imageView;
-@property(strong, nonatomic)UIImageView *selecetImageView;
-@property(assign, nonatomic)BOOL isSeleceted;
+@property (strong, nonatomic)UIImageView *imageView;
+@property (strong, nonatomic)UIImageView *selecetImageView;
+@property (assign, nonatomic)BOOL isSeleceted;
 
 @end

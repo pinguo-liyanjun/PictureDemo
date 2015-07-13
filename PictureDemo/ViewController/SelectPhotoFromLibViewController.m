@@ -15,11 +15,11 @@
 
 @interface SelectPhotoFromLibViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-@property(nonatomic, strong)UICollectionView *collectionView;
-@property(nonatomic, strong)NSMutableArray *dataSourceArray;
-@property(nonatomic, strong)NSMutableArray *dateArray;
-@property(nonatomic, strong)ALAssetsLibrary *assetsLibrary;
-@property(nonatomic, strong)NSMutableArray *fullScreenImageSourceArray;
+@property (nonatomic, strong)UICollectionView *mCollectionView;
+@property (nonatomic, strong)NSMutableArray *mDataSourceArray;
+@property (nonatomic, strong)NSMutableArray *mDateArray;
+@property (nonatomic, strong)ALAssetsLibrary *mAssetsLibrary;
+@property (nonatomic, strong)NSMutableArray *mFullScreenImageSourceArray;
 
 
 @end
@@ -30,17 +30,18 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self  = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         self.leftBtn = nil;
         self.rightBtn = nil;
 
         self.returnAction = @selector(backAction:);
         self.doneAction = @selector(doneAction:);
         
-        self.dataSourceArray = [[NSMutableArray alloc]init];
-        self.dateArray = [[NSMutableArray alloc]init];
-        self.fullScreenImageSourceArray = [[NSMutableArray alloc]init];
-        self.assetsLibrary = [[ALAssetsLibrary alloc] init];
+        self.mDataSourceArray = [[NSMutableArray alloc]init];
+        self.mDateArray = [[NSMutableArray alloc]init];
+        self.mFullScreenImageSourceArray = [[NSMutableArray alloc]init];
+        self.mAssetsLibrary = [[ALAssetsLibrary alloc] init];
     }
     return self;
 }
@@ -54,7 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view insertSubview:self.collectionView belowSubview:self.navBar];
+    [self.view addSubview:self.mCollectionView];
     
     [self getPhotoFromLibByName:self.navTitle];
     
@@ -68,11 +69,12 @@
 
 - (void)updateViewConstraints
 {
-    if (!self.didSetupConstraints) {
-        [self.collectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:0];
-        [self.collectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
-        [self.collectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
-        [self.collectionView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
+    if (!self.didSetupConstraints)
+    {
+        [self.mCollectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:0];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
+        [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
 
         self.didSetupConstraints = YES;
     }
@@ -80,30 +82,31 @@
 }
 
 #pragma mark --getter--
-- (UICollectionView *)collectionView
+- (UICollectionView *)mCollectionView
 {
-    if (!_collectionView) {
+    if (!_mCollectionView)
+    {
          UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         [layout setHeaderReferenceSize:CGSizeMake(DEVIECE_MAINFRAME.size.width, 40)];
-        layout.itemSize = CGSizeMake((DEVIECE_MAINFRAME.size.width-30)/3, (DEVIECE_MAINFRAME.size.width-30)/3);
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor whiteColor];
-        _collectionView.scrollEnabled = YES;
-        [_collectionView setScrollsToTop:YES];
-        [_collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCellIdentifier"];
-        [_collectionView registerClass:[CollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier"];
+        layout.itemSize = CGSizeMake((DEVIECE_MAINFRAME.size.width-45)/3, (DEVIECE_MAINFRAME.size.width-45)/3);
+        _mCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+        _mCollectionView.dataSource = self;
+        _mCollectionView.delegate = self;
+        _mCollectionView.backgroundColor = [UIColor whiteColor];
+        _mCollectionView.scrollEnabled = YES;
+        [_mCollectionView setScrollsToTop:YES];
+        [_mCollectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCellIdentifier"];
+        [_mCollectionView registerClass:[CollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeaderIdentifier"];
     }
-    return _collectionView;
+    return _mCollectionView;
 }
 
 #pragma mark --CollectionView Delegate--
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((DEVIECE_MAINFRAME.size.width-40)/3, (DEVIECE_MAINFRAME.size.width-40)/3);
+    return CGSizeMake((DEVIECE_MAINFRAME.size.width-45)/3, (DEVIECE_MAINFRAME.size.width-45)/3);
 }
 
 
@@ -127,8 +130,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return [[self.dataSourceArray objectAtIndex:section]count];
-    return self.dataSourceArray.count;
+    return self.mDataSourceArray.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -155,7 +157,7 @@
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:collectionCellID forIndexPath:indexPath];
     [cell sizeToFit];
     
-    UIImage *image  = [self.dataSourceArray objectAtIndex:indexPath.row];
+    UIImage *image  = [self.mDataSourceArray objectAtIndex:indexPath.row];
     cell.imageView.image = image;
     return cell;
 }
@@ -164,12 +166,16 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ShowPhotoViewController *showPhotoVC = [[ShowPhotoViewController alloc]initWithNibName:nil bundle:nil];
-    [showPhotoVC.dataSourceArray setArray:self.fullScreenImageSourceArray];
+    [showPhotoVC.dataSourceArray setArray:self.mDataSourceArray];
     showPhotoVC.currectIndex = indexPath.row;
-    if (self.navigationController) {
+    showPhotoVC.currectGroupName = self.navTitle;
+    showPhotoVC.isAppSourceImage = NO;
+    if (self.navigationController)
+    {
         [self.navigationController pushViewController:showPhotoVC animated:YES];
     }
-    else{
+    else
+    {
         [self presentViewController:showPhotoVC animated:YES completion:nil];
     }
 }
@@ -182,10 +188,12 @@
 #pragma mark --Action funtion--
 - (void)backAction:(id)sender
 {
-    if (self.navigationController) {
+    if (self.navigationController)
+    {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else{
+    else
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -196,32 +204,34 @@
 }
 
 #pragma mark --help function--
-- (void)getPhotoFromLibByName:(NSString *)groupName{
-    [self.dateArray removeAllObjects];
-    [self.dataSourceArray removeAllObjects];
-    [self.fullScreenImageSourceArray removeAllObjects];
-    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
-        [group setAssetsFilter:onlyPhotosFilter];
-        if (group.numberOfAssets > 0 && [[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:groupName]){
-            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                if (result) {
-                    [self.dataSourceArray addObject:[UIImage imageWithCGImage: result.thumbnail]];
-                    NSString *date=[result valueForProperty:ALAssetPropertyDate];
-                    [self.dateArray addObject:date];
-                    [self.fullScreenImageSourceArray addObject:[UIImage imageWithCGImage:[result defaultRepresentation].fullScreenImage]];
-                }
-                else{
-                 [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                }
-            }];
-        }
-    };
-    
-    NSUInteger groupTypes = ALAssetsGroupAll ;
-    [self.assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:^(NSError *error) {
-        NSLog(@"Group not found!\n");
-    }];
+- (void)getPhotoFromLibByName:(NSString *)groupName
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.mDateArray removeAllObjects];
+        [self.mDataSourceArray removeAllObjects];
+        [self.mFullScreenImageSourceArray removeAllObjects];
+        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+            ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+            [group setAssetsFilter:onlyPhotosFilter];
+            if (group.numberOfAssets > 0 && [[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:groupName]){
+                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                    if (result) {
+                        [self.mDataSourceArray addObject:[UIImage imageWithCGImage: result.thumbnail]];
+                        NSString *date=[result valueForProperty:ALAssetPropertyDate];
+                        [self.mDateArray addObject:date];
+                    }
+                    else{
+                        [self.mCollectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                    }
+                }];
+            }
+        };
+        
+        NSUInteger groupTypes = ALAssetsGroupAll ;
+        [self.mAssetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:^(NSError *error) {
+            NSLog(@"Group not found!\n");
+        }];
+    });
 }
 
 
