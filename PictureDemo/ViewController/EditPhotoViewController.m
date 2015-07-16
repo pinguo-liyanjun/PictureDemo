@@ -290,8 +290,6 @@ typedef NS_ENUM(NSInteger, EditType) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[PadManager sharedPadManagerInstance]setPadStatus:PadStatusType_Waiting withInDic:nil resultBlock:nil];
         [[TaskHelper sharedInstance]asyncTask:^(NSDictionary *result){
-            if (SAVETOLOCALLIBRARY)
-            {
                 [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
                 static dispatch_once_t onceToken;
                 dispatch_once(&onceToken, ^{
@@ -310,17 +308,16 @@ typedef NS_ENUM(NSInteger, EditType) {
                         }
                     });
                 }];
-            }
-            else
-            {
-                NSString *dirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"ImageSource"];
-                [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
-                NSData *imageData = UIImagePNGRepresentation(self.currectImage);
-                NSString *imagePath = [NSString stringWithFormat:@"%@/%@.png",dirPath,[self getMD5HexString:imageData]];
-                BOOL flag = [imageData writeToFile:imagePath atomically:YES];
-                NSLog(@"%d",flag);
-                [NSThread sleepForTimeInterval:.1];
-            }
+           
+//            //写入到本app相册目录
+//                NSString *dirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"ImageSource"];
+//                [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
+//                NSData *imageData = UIImagePNGRepresentation(self.currectImage);
+//                NSString *imagePath = [NSString stringWithFormat:@"%@/%@.png",dirPath,[self getMD5HexString:imageData]];
+//                BOOL flag = [imageData writeToFile:imagePath atomically:YES];
+//                NSLog(@"%d",flag);
+//                [NSThread sleepForTimeInterval:.1];
+//            }
         } withInDictionary:nil];
         [[PadManager sharedPadManagerInstance]setPadStatus:PadStatusType_Finish withInDic:nil resultBlock:nil];
     });
