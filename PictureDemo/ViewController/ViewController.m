@@ -53,8 +53,7 @@
             UIImage *image = [temImageArray objectAtIndex:i];
             NSData *imageData = UIImagePNGRepresentation(image);
             NSString *imagePath = [NSString stringWithFormat:@"%@/%ld.jpg",path,(long)i+1];
-            BOOL flag = [imageData writeToFile:imagePath atomically:YES];
-            NSLog(@"%ld",flag);
+            [imageData writeToFile:imagePath atomically:YES];
         }
         [[NSUserDefaults standardUserDefaults]setObject:@(1) forKey:@"HaveWritten"];
     }

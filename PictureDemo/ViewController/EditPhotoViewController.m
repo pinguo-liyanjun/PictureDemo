@@ -14,6 +14,10 @@
 #import "PureLayout.h"
 #import "ShearPhotographViewController.h"
 #import "StickerPhotographViewController.h"
+#import "TaskHelper.h"
+#import "PadManager.h"
+#import "UIImage+Custom.h"
+#import <CommonCrypto/CommonDigest.h>
 
 typedef NS_ENUM(NSInteger, EditType) {
     EditType_ShearPhotograph = 0,
@@ -109,6 +113,7 @@ typedef NS_ENUM(NSInteger, EditType) {
         [self.imageView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
         [self.imageView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
         [self.imageView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:100];
+       
         
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
@@ -127,9 +132,10 @@ typedef NS_ENUM(NSInteger, EditType) {
     if (!_imageView)
     {
         _imageView = [[UIImageView alloc]initForAutoLayout];
+        _imageView.contentMode = UIViewContentModeCenter;
         if (self.currectImage)
         {
-            _imageView.image = self.currectImage;
+            _imageView.image = [UIImage image:self.currectImage ScaleToSize:CGSizeMake(DEVIECE_MAINFRAME.size.width - 10, DEVIECE_MAINFRAME.size.height - 100 - NAVIGATIONBAR_HEIGHT)];
         }
     }
     return _imageView;
@@ -256,14 +262,14 @@ typedef NS_ENUM(NSInteger, EditType) {
 - (void)getShearedImage:(UIImage *)shearedImage;
 {
     self.currectImage = shearedImage;
-    self.imageView.image = self.currectImage;
+    self.imageView.image = [UIImage image:self.currectImage ScaleToSize:CGSizeMake(DEVIECE_MAINFRAME.size.width - 10, DEVIECE_MAINFRAME.size.height - 100 - NAVIGATIONBAR_HEIGHT)];
 }
 
 #pragma mark --StickerPhotographViewControllerDelegate--
 - (void)getStickerPhotographImage:(UIImage *)stickerPhotographImage
 {
     self.currectImage = stickerPhotographImage;
-    self.imageView.image = self.currectImage;
+    self.imageView.image = [UIImage image:self.currectImage ScaleToSize:CGSizeMake(DEVIECE_MAINFRAME.size.width - 10, DEVIECE_MAINFRAME.size.height - 100 - NAVIGATIONBAR_HEIGHT)];
 }
 
 #pragma mark --Action funtion--
@@ -281,8 +287,19 @@ typedef NS_ENUM(NSInteger, EditType) {
 
 - (void)doneAction:(id)sender
 {
-    
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[PadManager sharedPadManagerInstance]setPadStatus:PadStatusType_Waiting withInDic:nil resultBlock:nil];
+        [[TaskHelper sharedInstance]asyncTask:^(NSDictionary *result){
+            NSString *dirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"ImageSource"];
+            [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
+            NSData *imageData = UIImagePNGRepresentation(self.currectImage);
+            NSString *imagePath = [NSString stringWithFormat:@"%@/%@.png",dirPath,[self getMD5HexString:imageData]];
+            BOOL flag = [imageData writeToFile:imagePath atomically:YES];
+            NSLog(@"%d",flag);
+            [NSThread sleepForTimeInterval:.1];
+        } withInDictionary:nil];
+        [[PadManager sharedPadManagerInstance]setPadStatus:PadStatusType_Finish withInDic:nil resultBlock:nil];
+    });
 }
 
 #pragma mark --help function--
@@ -302,5 +319,15 @@ typedef NS_ENUM(NSInteger, EditType) {
     }
 }
 
+- (NSString *)getMD5HexString:(NSData *)data
+{
+    const char *originalData = [data bytes];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(originalData,(CC_LONG)[data length],result);
+    NSMutableString *hash = [NSMutableString string];
+    for (int i = 0; i < 16; i++)
+        [hash appendFormat:@"%02X", result[i]];
+    return [hash lowercaseString];
+}
 
 @end

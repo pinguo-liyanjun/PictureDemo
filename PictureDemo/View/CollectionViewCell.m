@@ -76,4 +76,20 @@
     return _selecetImageView;
 }
 
+#pragma mark --public function--
+
+- (void)updateCellWithImageSelected:(BOOL)selected
+{
+    if (selected)
+    {
+        self.selecetImageView.backgroundColor = [UIColor greenColor];
+        self.isSeleceted = YES;
+    }
+    else
+    {
+        self.selecetImageView.backgroundColor = [UIColor clearColor];
+        self.isSeleceted = NO;
+    }
+}
+
 @end

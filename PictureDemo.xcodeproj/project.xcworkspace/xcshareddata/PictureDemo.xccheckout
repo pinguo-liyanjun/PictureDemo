@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>7840FD13-748D-4384-8AD3-A7CD8B026E31</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>PictureDemo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>7BAE868C4D7D4A06E10022A7EABF1E2646CE6A88</key>
 		<string>https://github.com/pinguo-liyanjun/PictureDemo.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>PictureDemo.xcodeproj/project.xcworkspace</string>
+	<string>PictureDemo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>7BAE868C4D7D4A06E10022A7EABF1E2646CE6A88</key>

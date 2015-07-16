@@ -14,4 +14,6 @@
 @property (strong, nonatomic)UIImageView *selecetImageView;
 @property (assign, nonatomic)BOOL isSeleceted;
 
+- (void)updateCellWithImageSelected:(BOOL)selected;
+
 @end

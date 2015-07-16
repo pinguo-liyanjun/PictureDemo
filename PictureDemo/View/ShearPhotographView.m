@@ -10,6 +10,9 @@
 #import "PureLayout.h"
 #import "UIImage+Custom.h"
 
+#define CornerWidth 40
+#define CornerHeight 40
+
 @interface ShearPhotographView ()
 
 @property (strong, nonatomic)UIImageView *mImageView;
@@ -62,8 +65,9 @@
 {
     if (!_mImageView)
     {
-        _mImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
-        _mImageView.backgroundColor = [UIColor whiteColor];
+        _mImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, self.frame.size.width-10, self.frame.size.height-10)];
+        _mImageView.backgroundColor = [UIColor lightGrayColor];
+        _mImageView.contentMode = UIViewContentModeCenter;
     }
     return _mImageView;
 }
@@ -72,7 +76,7 @@
 {
     if (!_mTopLineView)
     {
-        _mTopLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 40)];
+        _mTopLineView = [[UIView alloc]initWithFrame:CGRectZero];
         _mTopLineView.backgroundColor = [UIColor clearColor];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(lineViewMoved:)];
         panGesture.enabled = YES;
@@ -86,7 +90,7 @@
 {
     if (!_mLeftLineView)
     {
-        _mLeftLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, CGRectGetHeight(self.mImageView.frame))];
+        _mLeftLineView = [[UIView alloc]initWithFrame:CGRectZero];
         _mLeftLineView.backgroundColor = [UIColor clearColor];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(lineViewMoved:)];
         panGesture.enabled = YES;
@@ -100,7 +104,7 @@
 {
     if (!_mRightLineView)
     {
-        _mRightLineView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.frame)-40, 0, 40, CGRectGetHeight(self.mImageView.frame))];
+        _mRightLineView = [[UIView alloc]initWithFrame:CGRectZero];
         _mRightLineView.backgroundColor = [UIColor clearColor];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(lineViewMoved:)];
         panGesture.enabled = YES;
@@ -114,7 +118,7 @@
 {
     if (!_mBottomLineView)
     {
-        _mBottomLineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.mImageView.frame)-40, CGRectGetWidth(self.frame), 40)];
+        _mBottomLineView = [[UIView alloc]initWithFrame:CGRectZero];
         _mBottomLineView.backgroundColor = [UIColor clearColor];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(lineViewMoved:)];
         panGesture.enabled = YES;
@@ -128,7 +132,7 @@
 {
     if (!_mTopLeftCorner)
     {
-        _mTopLeftCorner = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+        _mTopLeftCorner = [[UIImageView alloc]initWithFrame:CGRectZero];
         _mTopLeftCorner.backgroundColor = [UIColor clearColor];
         _mTopLeftCorner.image = [UIImage imageNamed:@"cropArrowTopLeft"];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(cornerViewMoved:)];
@@ -143,7 +147,7 @@
 {
     if (!_mTopRightCorner)
     {
-        _mTopRightCorner = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.frame)-40, 0, 40, 40)];
+        _mTopRightCorner = [[UIImageView alloc]initWithFrame:CGRectZero];
         _mTopRightCorner.backgroundColor = [UIColor clearColor];
         _mTopRightCorner.image = [UIImage imageNamed:@"cropArrowTopRight"];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(cornerViewMoved:)];
@@ -158,7 +162,7 @@
 {
     if (!_mBottomLeftCorner)
     {
-        _mBottomLeftCorner = [[UIImageView alloc]initWithFrame:CGRectMake(0,CGRectGetHeight(self.mImageView.frame)-40, 40, 40)];
+        _mBottomLeftCorner = [[UIImageView alloc]initWithFrame:CGRectZero];
         _mBottomLeftCorner.backgroundColor = [UIColor clearColor];
         _mBottomLeftCorner.image = [UIImage imageNamed:@"cropArrowBottomLeft"];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(cornerViewMoved:)];
@@ -173,7 +177,7 @@
 {
     if (!_mBottomRightCorner)
     {
-        _mBottomRightCorner = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.frame)-40, CGRectGetHeight(self.mImageView.frame)-40, 40, 40)];
+        _mBottomRightCorner = [[UIImageView alloc]initWithFrame:CGRectZero];
         _mBottomRightCorner.backgroundColor = [UIColor clearColor];
         _mBottomRightCorner.image = [UIImage imageNamed:@"cropArrowBottomRight"];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(cornerViewMoved:)];
@@ -188,7 +192,7 @@
 {
     if (!_mCropView)
     {
-        _mCropView = [[UIView alloc]initWithFrame:CGRectMake(10, 10, CGRectGetWidth(self.frame)-20, CGRectGetHeight(self.mImageView.frame)-20)];
+        _mCropView = [[UIView alloc]initWithFrame:CGRectZero];
         _mCropView.backgroundColor = [[UIColor clearColor]colorWithAlphaComponent:.2];
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(cropViewMoved:)];
         panGesture.enabled= YES;
@@ -252,8 +256,7 @@
         self.mRightLineCenter = self.mRightLineView.center;
         self.mBottomLineCenter = self.mBottomLineView.center;
     }
-    NSLog(@"origin point :%f,%f",self.mPanGestureStartPoint.x,self.mPanGestureStartPoint.y);
-   
+  
     if (pan.view == self.mCropView) {
         CGPoint point = [self moveView:pan.view withPoint:[pan translationInView:self]];
         [self.mTopLineView setCenter:CGPointMake(self.mTopLineCenter.x+point.x, self.mTopLineCenter.y+point.y)];
@@ -270,10 +273,15 @@
 - (CGPoint)moveView:(UIView *)view withPoint:(CGPoint)point
 {
     CGPoint offsetPoint = point;
-    CGFloat maxMoveRight = CGRectGetMaxX(self.mImageView.frame)-self.mRightLineCenter.x;
-    CGFloat maxMoveLeft = -self.mLeftLineCenter.x;
-    CGFloat maxMoveUp = -self.mTopLineCenter.y;
-    CGFloat maxMoveDown = CGRectGetMaxY(self.mImageView.frame)-self.mBottomLineCenter.y;
+    
+    CGSize imageSize = self.mImageView.image.size;
+    CGPoint imageCenter = self.mImageView.center;
+    
+    CGFloat maxMoveRight =  imageSize.width / 2 - (self.mRightLineCenter.x - imageCenter.x);
+    CGFloat maxMoveLeft = -(imageSize.width / 2 - (imageCenter.x - self.mLeftLineCenter.x));
+    CGFloat maxMoveUp = - (imageSize.height / 2 - (imageCenter.y - self.mTopLineCenter.y));
+    CGFloat maxMoveDown = imageSize.height /2 - (self.mBottomLineCenter.y - imageCenter.y);
+    
     if (point.x > 0)
     {
         if (point.x > maxMoveRight) {
@@ -306,35 +314,38 @@
     if (lineView == self.mTopLineView || lineView == self.mBottomLineView)
     {
         point = CGPointMake(lineView.frame.origin.x,point.y);
-        finalPoint = CGPointMake(point.x,point.y+self.mPanGestureStartPoint.y);
+        finalPoint = CGPointMake(point.x,point.y + self.mPanGestureStartPoint.y);
     }
     else if (lineView == self.mLeftLineView || lineView == self.mRightLineView)
     {
         point = CGPointMake(point.x, lineView.frame.origin.y);
-        finalPoint = CGPointMake(point.x+self.mPanGestureStartPoint.x,point.y);
+        finalPoint = CGPointMake(point.x + self.mPanGestureStartPoint.x,point.y);
     }
     
     CGRect frame = lineView.frame;
-    CGFloat halfWidth = self.mLeftLineView.frame.size.width/2;
+    CGPoint imageCenter = self.mImageView.center;
+    CGSize imageSize = self.mImageView.image.size;
+    CGFloat halfWidth = CornerWidth / 2;
+    
     if (lineView == self.mTopLineView)
     {
         CGFloat y = finalPoint.y;
-        if (finalPoint.y < -halfWidth)
+        if (finalPoint.y < imageCenter.y - imageSize.height / 2 - CornerHeight / 2)
         {
-            y = -halfWidth;
+            y = (imageCenter.y - imageSize.height / 2 - CornerHeight / 2);
         }
-        else if (finalPoint.y > self.mBottomLineView.center.y-halfWidth*3)
+        else if (finalPoint.y > self.mBottomLineView.center.y - halfWidth * 3)
         {
-            y = self.mBottomLineView.center.y-halfWidth*3;
+            y = self.mBottomLineView.center.y - halfWidth * 3;
         }
         frame.origin.y = y;
     }
     else if (lineView == self.mBottomLineView)
     {
         CGFloat y = finalPoint.y;
-        if (y > self.mImageView.frame.size.height - halfWidth)
+        if (y > imageCenter.y + imageSize.height / 2 - CornerHeight / 2)
         {
-            y = self.mImageView.frame.size.height - halfWidth;
+            y = imageCenter.y + imageSize.height / 2 - CornerHeight / 2;
         }
         else if (y < self.mTopLineView.center.y + halfWidth)
         {
@@ -345,13 +356,13 @@
     else if (lineView == self.mLeftLineView)
     {
         CGFloat x = finalPoint.x;
-        if (x < -halfWidth)
+        if (x < imageCenter.x - imageSize.width / 2 - CornerWidth / 2)
         {
-            x = -halfWidth;
+            x = imageCenter.x - imageSize.width / 2 - CornerWidth / 2;
         }
-        else if (x > self.mRightLineView.center.x-3*halfWidth)
+        else if (x > self.mRightLineView.center.x - 3 * halfWidth)
         {
-            x =  self.mRightLineView.center.x-3*halfWidth;
+            x =  self.mRightLineView.center.x - 3 * halfWidth;
         }
         frame.origin.x = x;
     }
@@ -362,9 +373,9 @@
         {
             x = self.mLeftLineView.center.x + halfWidth;
         }
-        else if (x > self.mImageView.frame.size.width - halfWidth)
+        else if (x > imageCenter.x + imageSize.width / 2 - CornerWidth / 2)
         {
-            x = self.mImageView.frame.size.width - halfWidth;
+            x = imageCenter.x + imageSize.width / 2 - CornerWidth / 2;
         }
         frame.origin.x = x;
     }
@@ -387,7 +398,10 @@
 
 - (CGRect) visibleRect{
     CGRect visibleRect;
-    visibleRect.origin = CGPointMake(self.mLeftLineView.center.x, self.mTopLineView.center.y);
+    CGSize imageSize = self.mImageView.image.size;
+    CGPoint imageCenter = self.mImageView.center;
+    
+    visibleRect.origin = CGPointMake(self.mLeftLineView.center.x - (imageCenter.x - imageSize.width / 2) ,self.mTopLineView.center.y - (imageCenter.y - imageSize.height / 2));
     visibleRect.size = CGSizeMake(self.mRightLineView.center.x-self.mLeftLineView.center.x, self.mBottomLineView.center.y-self.mTopLineView.center.y);
     return visibleRect;
 }
@@ -397,20 +411,40 @@
 {
     if (sourceImage)
     {
+        CGSize imageSize;
         self.originalImage = sourceImage;
         if (self.mImageView) {
-            self.mImageView.image = sourceImage;
+            UIImage *scaleImage = [UIImage image:sourceImage ScaleToSize:self.mImageView.frame.size];
+            self.mImageView.image = scaleImage;
+            imageSize = scaleImage.size;
         }
+        
+        CGPoint imageCenter = self.mImageView.center;
+        [self.mTopLineView setFrame:CGRectMake(imageCenter.x - imageSize.width / 2 - CornerWidth / 2, imageCenter.y - imageSize.height / 2 - CornerHeight / 2,imageSize.width , CornerHeight)];
+        [self.mLeftLineView setFrame:CGRectMake(imageCenter.x - imageSize.width / 2 - CornerWidth / 2, imageCenter.y - imageSize.height / 2 - CornerHeight / 2, CornerWidth, imageSize.height)];
+        [self.mRightLineView setFrame:CGRectMake(imageCenter.x + imageSize.width / 2 - CornerWidth / 2, imageCenter.y - imageSize.height / 2 - CornerHeight / 2 , CornerWidth, imageSize.height)];
+        [self.mBottomLineView setFrame:CGRectMake(imageCenter.x + imageSize.width / 2 - CornerWidth / 2, imageCenter.y + imageSize.height / 2 - CornerHeight / 2, imageSize.width, CornerHeight)];
+        
+        [self.mTopLeftCorner setFrame:CGRectMake(imageCenter.x - imageSize.width / 2- CornerWidth / 2, imageCenter.y - imageSize.height / 2 - CornerHeight / 2,CornerWidth,CornerHeight)];
+        [self.mTopRightCorner setFrame:CGRectMake(imageCenter.x + imageSize.width / 2 - CornerWidth / 2, imageCenter.y - imageSize.height / 2 - CornerHeight / 2, CornerWidth, CornerHeight)];
+        [self.mBottomLeftCorner setFrame:CGRectMake(imageCenter.x - imageSize.width / 2 - CornerWidth / 2, imageCenter.y + imageSize.height / 2 - CornerHeight / 2, CornerWidth, CornerHeight)];
+        [self.mBottomRightCorner setFrame:CGRectMake(imageCenter.x + imageSize.width /2 - CornerWidth / 2, imageCenter.y + imageSize.height /2 - CornerHeight / 2, CornerWidth, CornerHeight)];
+        
+        [self.mCropView setFrame:CGRectMake(self.mTopLeftCorner.center.x, self.mTopLeftCorner.center.y, self.mTopLineView.frame.size.width, self.mRightLineView.frame.size.height)];
+    }
+    else
+    {
+        
     }
 }
 
 - (UIImage *)getShearedImage
 {
     CGRect rect = [self visibleRect];
-    CGFloat koef_x =  self.originalImage.size.width/self.mImageView.frame.size.width;
-    CGFloat koef_y = self.originalImage.size.height/self.mImageView.frame.size.height;
+    CGFloat koef_x =  self.originalImage.size.width/self.mImageView.image.size.width;
+    CGFloat koef_y = self.originalImage.size.height/self.mImageView.image.size.height;
     CGRect finalImageRect = CGRectMake(rect.origin.x*koef_x, rect.origin.y*koef_y, rect.size.width*koef_x, rect.size.height*koef_y);
-    UIImage *croppedImage = [self.mImageView.image imageAtRect:finalImageRect];
+    UIImage *croppedImage = [self.originalImage imageAtRect:finalImageRect];
     return croppedImage;
 
 }

@@ -379,5 +379,32 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     return newImage;
 }
 
++ (UIImage *)image:(UIImage *)image ScaleToSize:(CGSize)size
+{
+    CGFloat width = CGImageGetWidth(image.CGImage);
+    CGFloat height = CGImageGetHeight(image.CGImage);
+    
+    CGFloat vertialScale = size.height / height;
+    CGFloat horizontalScale = size.width / width;
+    
+    float scale = MIN(vertialScale, horizontalScale);
+    
+    width = width * scale;
+    height = height * scale;
+    
+    //开启上下文
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
+    
+    //画出图像
+    [image drawInRect:CGRectMake(0, 0, width, height)];
+    
+    //获取图片
+    UIImage *scaleImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //结束上下文
+    UIGraphicsEndImageContext();
+    
+    return scaleImage;
+}
 
 @end

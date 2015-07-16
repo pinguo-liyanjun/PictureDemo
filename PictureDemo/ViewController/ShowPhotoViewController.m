@@ -13,6 +13,8 @@
 #import "EditPhotoViewController.h"
 #import "Language.h"
 #import "PureLayout.h"
+#import "UIImage+Custom.h"
+#import "ImageTap.h"
 
 @interface ShowPhotoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -115,7 +117,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
         [layout setHeaderReferenceSize:CGSizeMake(0, 0)];
-        layout.itemSize = CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.width-10);
+        layout.itemSize = CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.height-NAVIGATIONBAR_HEIGHT-10);
         _mCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _mCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
         _mCollectionView.dataSource = self;
@@ -155,13 +157,21 @@
 {
     static NSString *collectionCellID = @"CollectionCellIdentifier";
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:collectionCellID forIndexPath:indexPath];
+    
+    UITapGestureRecognizer *tap  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(magnifyImage:)];
+    tap.numberOfTapsRequired = 1;
+    tap.numberOfTouchesRequired = 1;
+    [cell addGestureRecognizer:tap];
+    
+    cell.imageView.contentMode = UIViewContentModeCenter;
     [cell sizeToFit];
     if (self.isAppSourceImage)
     {
-        cell.imageView.image = [self.dataSourceArray objectAtIndex:indexPath.row];
+        self.mCurrectImage = [self.dataSourceArray objectAtIndex:indexPath.row];
+        cell.imageView.image = [UIImage image:[self.dataSourceArray objectAtIndex:indexPath.row] ScaleToSize:CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.height-NAVIGATIONBAR_HEIGHT-10)];
     }
     else{
-        cell.imageView.image = self.mCurrectImage;
+        cell.imageView.image = [UIImage image:self.mCurrectImage ScaleToSize:CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.height-NAVIGATIONBAR_HEIGHT-10)];
     }
    
     return cell;
@@ -171,7 +181,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.width-10);
+    return CGSizeMake(DEVIECE_MAINFRAME.size.width-10,DEVIECE_MAINFRAME.size.height-NAVIGATIONBAR_HEIGHT-10);
 }
 
 
@@ -276,6 +286,12 @@
 }
 
 #pragma mark --help function--
+- (void)magnifyImage:(UITapGestureRecognizer *)tap
+{
+    CollectionViewCell *cell = (CollectionViewCell *)tap.view;
+    [ImageTap image:self.mCurrectImage TapShowFullScreen:cell.imageView];
+}
+
 - (void)collectionViewScrollToIndexPath:(NSIndexPath *)indexPath
 {
      [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];

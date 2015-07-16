@@ -54,6 +54,8 @@ static Language *sharedLanguageInstance = nil;
         [zh_cn setObject:@"矩形" forKey:@"rectangle"];
         [zh_cn setObject:@"混合" forKey:@"circle_rectangle"];
         
+        [zh_cn setObject:@"导出" forKey:@"export"];
+        
         _languageArray = [[NSArray alloc]initWithObjects:zh_cn, nil];
     }
 }

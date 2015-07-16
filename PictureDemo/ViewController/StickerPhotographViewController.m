@@ -118,7 +118,7 @@
         [cancelBtn setTitle:[[Language sharedLanguage]stringForKey:@"cancel"] forState:UIControlStateNormal];
         [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [cancelBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
-        [cancelBtn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+        [cancelBtn addTarget:self action:@selector(cancelBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_mToolBar addSubview:cancelBtn];
         [cancelBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:5];
         [cancelBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
@@ -126,16 +126,16 @@
         [cancelBtn autoSetDimension:ALDimensionWidth toSize:60];
         
         
-        UIButton *saveBtn = [[UIButton alloc]initForAutoLayout];
-        [saveBtn setTitle:[[Language sharedLanguage]stringForKey:@"ok"] forState:UIControlStateNormal];
-        [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [saveBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
-        [saveBtn addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
-        [_mToolBar addSubview:saveBtn];
-        [saveBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:5];
-        [saveBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10];
-        [saveBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
-        [saveBtn autoSetDimension:ALDimensionWidth toSize:60];
+        UIButton *okBtn = [[UIButton alloc]initForAutoLayout];
+        [okBtn setTitle:[[Language sharedLanguage]stringForKey:@"ok"] forState:UIControlStateNormal];
+        [okBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [okBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+        [okBtn addTarget:self action:@selector(okBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_mToolBar addSubview:okBtn];
+        [okBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:5];
+        [okBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10];
+        [okBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
+        [okBtn autoSetDimension:ALDimensionWidth toSize:60];
         
     }
     return _mToolBar;
@@ -143,12 +143,12 @@
 
 
 #pragma mark --action function--
-- (void)cancel:(id)sender
+- (void)cancelBtnPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)save:(id)sender
+- (void)okBtnPressed:(id)sender
 {
     UIImage *stickerPhotographImage = [self.stickerPhotoView getStickerPhotographImage];
     if (self.delegate && [self.delegate respondsToSelector:@selector(getStickerPhotographImage:)]) {

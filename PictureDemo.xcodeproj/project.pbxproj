@@ -11,6 +11,11 @@
 		DE169D2B1B4924B900DBE3A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE169D2A1B4924B900DBE3A1 /* Foundation.framework */; };
 		DE169D2D1B4924C000DBE3A1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE169D2C1B4924C000DBE3A1 /* CoreFoundation.framework */; };
 		DE169D2F1B49253B00DBE3A1 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE169D2E1B49253B00DBE3A1 /* AssetsLibrary.framework */; };
+		DE5C1FCE1B54AD4C00370481 /* TaskHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5C1FCD1B54AD4C00370481 /* TaskHelper.m */; };
+		DE5C1FD11B54B3EA00370481 /* WaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5C1FD01B54B3EA00370481 /* WaitingView.m */; };
+		DE5C1FD51B54BA8D00370481 /* PadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5C1FD41B54BA8D00370481 /* PadManager.m */; };
+		DE5C1FDA1B54DBA300370481 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5C1FD81B54DBA300370481 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DE7D4CF41B5742F000795438 /* ImageTap.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7D4CF31B5742F000795438 /* ImageTap.m */; };
 		DE81D3351B4A18DC003FB412 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE81D3331B4A18DC003FB412 /* Main.storyboard */; };
 		DEBBBCED1B523E3000DB3413 /* StickerPhotographViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEBBBCEC1B523E3000DB3413 /* StickerPhotographViewController.m */; };
 		DEBBBCF01B523E6000DB3413 /* StickerPhotographView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEBBBCEF1B523E6000DB3413 /* StickerPhotographView.m */; };
@@ -109,6 +114,17 @@
 		DE169D2A1B4924B900DBE3A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DE169D2C1B4924C000DBE3A1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		DE169D2E1B49253B00DBE3A1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		DE5C1FCC1B54AD4C00370481 /* TaskHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskHelper.h; sourceTree = "<group>"; };
+		DE5C1FCD1B54AD4C00370481 /* TaskHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskHelper.m; sourceTree = "<group>"; };
+		DE5C1FCF1B54B3EA00370481 /* WaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitingView.h; sourceTree = "<group>"; };
+		DE5C1FD01B54B3EA00370481 /* WaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingView.m; sourceTree = "<group>"; };
+		DE5C1FD31B54BA8D00370481 /* PadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadManager.h; sourceTree = "<group>"; };
+		DE5C1FD41B54BA8D00370481 /* PadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadManager.m; sourceTree = "<group>"; };
+		DE5C1FD71B54DBA300370481 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		DE5C1FD81B54DBA300370481 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		DE5C1FD91B54DBA300370481 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		DE7D4CF21B5742F000795438 /* ImageTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTap.h; sourceTree = "<group>"; };
+		DE7D4CF31B5742F000795438 /* ImageTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTap.m; sourceTree = "<group>"; };
 		DE81D3341B4A18DC003FB412 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DEBBBCEB1B523E3000DB3413 /* StickerPhotographViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StickerPhotographViewController.h; sourceTree = "<group>"; };
 		DEBBBCEC1B523E3000DB3413 /* StickerPhotographViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StickerPhotographViewController.m; sourceTree = "<group>"; };
@@ -245,6 +261,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE5C1FD21B54BA5100370481 /* PadView */ = {
+			isa = PBXGroup;
+			children = (
+				DE5C1FD61B54DBA300370481 /* GMTBase64 */,
+				DE5C1FD31B54BA8D00370481 /* PadManager.h */,
+				DE5C1FD41B54BA8D00370481 /* PadManager.m */,
+				DE5C1FCF1B54B3EA00370481 /* WaitingView.h */,
+				DE5C1FD01B54B3EA00370481 /* WaitingView.m */,
+			);
+			name = PadView;
+			sourceTree = "<group>";
+		};
+		DE5C1FD61B54DBA300370481 /* GMTBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				DE5C1FD71B54DBA300370481 /* GTMBase64.h */,
+				DE5C1FD81B54DBA300370481 /* GTMBase64.m */,
+				DE5C1FD91B54DBA300370481 /* GTMDefines.h */,
+			);
+			path = GMTBase64;
+			sourceTree = "<group>";
+		};
 		DEBD2F201B4FC17600C4306E /* image */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +362,10 @@
 				DEC35DC31B4B64C300981DFF /* Language.m */,
 				DEC35DC41B4B64C300981DFF /* UIImage+Custom.h */,
 				DEC35DC51B4B64C300981DFF /* UIImage+Custom.m */,
+				DE5C1FCC1B54AD4C00370481 /* TaskHelper.h */,
+				DE5C1FCD1B54AD4C00370481 /* TaskHelper.m */,
+				DE7D4CF21B5742F000795438 /* ImageTap.h */,
+				DE7D4CF31B5742F000795438 /* ImageTap.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,6 +387,7 @@
 				DEC62ED41B4E84A4005C2B13 /* ShearPhotographView.m */,
 				DEBBBCEE1B523E6000DB3413 /* StickerPhotographView.h */,
 				DEBBBCEF1B523E6000DB3413 /* StickerPhotographView.m */,
+				DE5C1FD21B54BA5100370481 /* PadView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -624,6 +667,7 @@
 				DEC62ED51B4E84A4005C2B13 /* ShearPhotographView.m in Sources */,
 				DEC35DE31B4B64C300981DFF /* CollectionViewCell.m in Sources */,
 				DEC35DE41B4B64C300981DFF /* EditCollectionViewCell.m in Sources */,
+				DE5C1FD51B54BA8D00370481 /* PadManager.m in Sources */,
 				DEC35DED1B4B64C300981DFF /* ViewController.m in Sources */,
 				DEC35DFE1B4B6C7F00981DFF /* ALView+PureLayout.m in Sources */,
 				DEBC9B691B53A155000E0E1D /* StickerPhotographTypeCell.m in Sources */,
@@ -635,12 +679,16 @@
 				DEC35DEC1B4B64C300981DFF /* ShowPhotoViewController.m in Sources */,
 				DEC35E001B4B6C7F00981DFF /* NSLayoutConstraint+PureLayout.m in Sources */,
 				DEBD2F7E1B4FCD0300C4306E /* ShearPhotographViewController.m in Sources */,
+				DE5C1FCE1B54AD4C00370481 /* TaskHelper.m in Sources */,
 				DEC8E30D1B461BA9003B7A59 /* main.m in Sources */,
 				DEC35DE81B4B64C300981DFF /* MyPhotoLibViewController.m in Sources */,
 				DEC35DE51B4B64C300981DFF /* TableViewCell.m in Sources */,
+				DE7D4CF41B5742F000795438 /* ImageTap.m in Sources */,
 				DEC35DFF1B4B6C7F00981DFF /* NSArray+PureLayout.m in Sources */,
 				DEC35DE91B4B64C300981DFF /* OtherPhotoLibViewController.m in Sources */,
+				DE5C1FD11B54B3EA00370481 /* WaitingView.m in Sources */,
 				DEBBBCF01B523E6000DB3413 /* StickerPhotographView.m in Sources */,
+				DE5C1FDA1B54DBA300370481 /* GTMBase64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

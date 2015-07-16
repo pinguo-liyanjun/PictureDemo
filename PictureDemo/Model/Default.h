@@ -19,11 +19,14 @@
 //
 #define DEVIECE_MAINFRAME   [[UIScreen mainScreen]applicationFrame]
 
+
 //状态栏高度
 #define STATUSBAR_HEIGHT            20
 
 //导航条高度
 #define NAVIGATIONBAR_HEIGHT        44
 
+//window
+#define FIRSTWINDOW ((UIWindow *)[[UIApplication sharedApplication].windows objectAtIndex:0])
 
 #endif
