@@ -290,19 +290,148 @@ typedef NS_ENUM(NSInteger, EditType) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[PadManager sharedPadManagerInstance]setPadStatus:PadStatusType_Waiting withInDic:nil resultBlock:nil];
         [[TaskHelper sharedInstance]asyncTask:^(NSDictionary *result){
-            NSString *dirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"ImageSource"];
-            [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
-            NSData *imageData = UIImagePNGRepresentation(self.currectImage);
-            NSString *imagePath = [NSString stringWithFormat:@"%@/%@.png",dirPath,[self getMD5HexString:imageData]];
-            BOOL flag = [imageData writeToFile:imagePath atomically:YES];
-            NSLog(@"%d",flag);
-            [NSThread sleepForTimeInterval:.1];
+            if (SAVETOLOCALLIBRARY)
+            {
+                [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
+                static dispatch_once_t onceToken;
+                dispatch_once(&onceToken, ^{
+                     [self createAlbumInPhoneAlbumWithName:[[Language sharedLanguage]stringForKey:@"albumName"]];
+                });
+                [self saveToAlbumWithMetadata:nil imageData:UIImagePNGRepresentation(self.currectImage) customAlbumName:[[Language sharedLanguage]stringForKey:@"albumName"] completionBlock:^{
+                    
+                    
+                } failureBlock:^(NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if([error.localizedDescription rangeOfString:@"User denied access"].location != NSNotFound ||[error.localizedDescription rangeOfString:@"用户拒绝访问"].location!=NSNotFound)
+                        {
+                            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
+                            [alert show];
+                            
+                        }
+                    });
+                }];
+            }
+            else
+            {
+                NSString *dirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"ImageSource"];
+                [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
+                NSData *imageData = UIImagePNGRepresentation(self.currectImage);
+                NSString *imagePath = [NSString stringWithFormat:@"%@/%@.png",dirPath,[self getMD5HexString:imageData]];
+                BOOL flag = [imageData writeToFile:imagePath atomically:YES];
+                NSLog(@"%d",flag);
+                [NSThread sleepForTimeInterval:.1];
+            }
         } withInDictionary:nil];
         [[PadManager sharedPadManagerInstance]setPadStatus:PadStatusType_Finish withInDic:nil resultBlock:nil];
     });
 }
 
 #pragma mark --help function--
+
+#pragma mark - 在手机相册中创建相册
+- (void)createAlbumInPhoneAlbumWithName:(NSString *)albumName
+{
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    NSMutableArray *groups=[[NSMutableArray alloc]init];
+    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop)
+    {
+        if (group)
+        {
+            [groups addObject:group];
+        }
+        
+        else
+        {
+            BOOL haveHDRGroup = NO;
+            
+            for (ALAssetsGroup *gp in groups)
+            {
+                NSString *name =[gp valueForProperty:ALAssetsGroupPropertyName];
+                
+                if ([name isEqualToString:albumName])
+                {
+                    haveHDRGroup = YES;
+                }
+            }
+            
+            if (!haveHDRGroup)
+            {
+                
+                [assetsLibrary addAssetsGroupAlbumWithName:albumName
+                                               resultBlock:^(ALAssetsGroup *group)
+                 {
+                     [groups addObject:group];
+                     
+                 }
+                                              failureBlock:nil];
+                haveHDRGroup = YES;
+            }
+        }
+        
+    };
+    //创建相簿
+    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:listGroupBlock failureBlock:nil];
+}
+
+- (void)saveToAlbumWithMetadata:(NSDictionary *)metadata
+                      imageData:(NSData *)imageData
+                customAlbumName:(NSString *)customAlbumName
+                completionBlock:(void (^)(void))completionBlock
+                   failureBlock:(void (^)(NSError *error))failureBlock
+{
+    
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    void (^AddAsset)(ALAssetsLibrary *, NSURL *) = ^(ALAssetsLibrary *assetsLibrary, NSURL *assetURL) {
+        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+            [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                
+                if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:customAlbumName]) {
+                    [group addAsset:asset];
+                    if (completionBlock) {
+                        completionBlock();
+                    }
+                }
+            } failureBlock:^(NSError *error) {
+                if (failureBlock) {
+                    failureBlock(error);
+                }
+            }];
+        } failureBlock:^(NSError *error) {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }];
+    };
+    
+    [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (customAlbumName) {
+             __weak ALAssetsLibrary *weakAssetLibrary = assetsLibrary;
+            [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
+                if (group) {
+                    [weakAssetLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                        [group addAsset:asset];
+                        if (completionBlock) {
+                            completionBlock();
+                        }
+                    } failureBlock:^(NSError *error) {
+                        if (failureBlock) {
+                            failureBlock(error);
+                        }
+                    }];
+                } else {
+                    AddAsset(weakAssetLibrary, assetURL);
+                }
+            } failureBlock:^(NSError *error) {
+                AddAsset(weakAssetLibrary, assetURL);
+            }];
+        } else {
+            if (completionBlock) {
+                completionBlock();
+            }
+        }
+    }];
+}
+
 
 - (void)updateNavTitle:(NSString *)navtitle
 {

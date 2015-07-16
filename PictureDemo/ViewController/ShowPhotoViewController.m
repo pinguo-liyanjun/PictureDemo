@@ -71,7 +71,7 @@
     [self.view addSubview:self.mCollectionView];
     [self.view setNeedsUpdateConstraints];
     
-    NSString *navTitle = [NSString stringWithFormat:@"%d/%ld",self.currectIndex+1,(unsigned long)[self.dataSourceArray count]];
+    NSString *navTitle = [NSString stringWithFormat:@"%ld/%ld",self.currectIndex+1,(unsigned long)[self.dataSourceArray count]];
     [self updateNavTitle:navTitle];
 }
 
@@ -281,7 +281,7 @@
         }
     }
     
-    NSString *navTitle = [NSString stringWithFormat:@"%d/%ld",self.currectIndex+1,(unsigned long)[self.dataSourceArray count]];
+    NSString *navTitle = [NSString stringWithFormat:@"%ld/%ld",self.currectIndex+1,(unsigned long)[self.dataSourceArray count]];
     [self updateNavTitle:navTitle];
 }
 

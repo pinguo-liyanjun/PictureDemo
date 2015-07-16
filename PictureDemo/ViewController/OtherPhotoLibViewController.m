@@ -53,14 +53,17 @@
    
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getPhotoLibInfo];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-   
     [self.view addSubview:self.mTableView];
-    
-    [self getPhotoLibInfo];
     
     [self.view setNeedsUpdateConstraints];
 }
@@ -166,7 +169,8 @@
 
 #pragma mark --help function--
 - (void)getPhotoLibInfo
-{    
+{
+    [self.mDataSourceArray removeAllObjects];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.mPhotoLibNameArray removeAllObjects];
         ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {

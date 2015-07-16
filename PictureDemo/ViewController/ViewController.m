@@ -27,7 +27,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UIImage *bgImage = [UIImage imageNamed:@"Default"];
     
-    UIImage *image = [UIImage rectangleImageWithName:bgImage andWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) borderWidth:0 borderColor:[UIColor greenColor]];
+//    UIImage *image = [UIImage rectangleImageWithName:bgImage andWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) borderWidth:0 borderColor:[UIColor greenColor]];
+    UIImage *image = [UIImage circleAndRectangleImageWithName:bgImage circleCenter:CGPointMake(bgImage.size.width / 2, 130) circleRadius:100 frame:CGRectMake(0,220 , bgImage.size.width , 150) borderWidth:1 borderColor:[UIColor greenColor]];
     
     UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
     bgImageView.image = image;

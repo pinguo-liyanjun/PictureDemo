@@ -29,4 +29,6 @@
 //window
 #define FIRSTWINDOW ((UIWindow *)[[UIApplication sharedApplication].windows objectAtIndex:0])
 
+#define SAVETOLOCALLIBRARY      YES
+
 #endif
