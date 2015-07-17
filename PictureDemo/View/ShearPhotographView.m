@@ -310,7 +310,7 @@
 
 - (void)moveLineView:(UIView *)lineView withPoint:(CGPoint)point
 {
-    CGPoint finalPoint;
+    CGPoint finalPoint = CGPointZero;
     if (lineView == self.mTopLineView || lineView == self.mBottomLineView)
     {
         point = CGPointMake(lineView.frame.origin.x,point.y);
@@ -320,6 +320,10 @@
     {
         point = CGPointMake(point.x, lineView.frame.origin.y);
         finalPoint = CGPointMake(point.x + self.mPanGestureStartPoint.x,point.y);
+    }
+    else
+    {
+    
     }
     
     CGRect frame = lineView.frame;
@@ -378,6 +382,9 @@
             x = imageCenter.x + imageSize.width / 2 - CornerWidth / 2;
         }
         frame.origin.x = x;
+    }
+    else{
+        
     }
     
     lineView.frame = frame;

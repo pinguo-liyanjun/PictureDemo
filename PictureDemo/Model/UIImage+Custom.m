@@ -147,11 +147,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
 {
     UIImage *sourceImage = self;
     UIImage *newImage = nil;
-    
-    //   CGSize imageSize = sourceImage.size;
-    //   CGFloat width = imageSize.width;
-    //   CGFloat height = imageSize.height;
-    
+
     CGFloat targetWidth = targetSize.width;
     CGFloat targetHeight = targetSize.height;
     
@@ -405,6 +401,51 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     UIGraphicsEndImageContext();
     
     return scaleImage;
+}
+
++ (UIImage *)getThumbnailImage:(UIImage *)image withThumbnalSize:(CGSize)size
+{
+    CGFloat width = CGImageGetWidth(image.CGImage);
+    CGFloat height = CGImageGetHeight(image.CGImage);
+    
+    CGFloat vertialScale = size.height / height;
+    CGFloat horizontalScale = size.width / width;
+    
+    float scale = MAX(vertialScale, horizontalScale);
+    
+    width = width * scale;
+    height = height * scale;
+    
+    //开启上下文
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
+    
+    //画出图像
+    [image drawInRect:CGRectMake(0, 0, width, height)];
+    
+    //获取图片
+    UIImage *thumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //结束上下文
+    UIGraphicsEndImageContext();
+    
+    return thumbnailImage;
+
+}
+
++ (UIImage *)getComposedImage:(UIImage *)bgImage toImage:(UIImage *)image withRelativePosition:(CGPoint)position
+{
+    UIGraphicsBeginImageContextWithOptions(image.size,NO , 0.0);
+    [bgImage drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+    
+    
+    
+    [image drawInRect:CGRectMake(position.x, position.y, image.size.width, image.size.height)];
+    
+    UIImage *composedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return composedImage;
 }
 
 @end

@@ -157,18 +157,12 @@
 #pragma mark --action funtion--
 - (void)backAction:(id)sender
 {
-    if (self.returnAction)
-    {
-        [self performSelector:self.returnAction withObject:nil];
-    }
+
 }
 
 - (void)doneAction:(id)sender
 {
-    if (self.doneAction)
-    {
-        [self performSelector:self.doneAction withObject:nil];
-    }
+   
 }
 
 #pragma <#arguments#>

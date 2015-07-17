@@ -356,7 +356,7 @@
 
 - (void)moveLineView:(UIView *)lineView withPoint:(CGPoint)point
 {
-    CGPoint finalPoint;
+    CGPoint finalPoint = CGPointZero;
     if (lineView == self.mTopLineView || lineView == self.mBottomLineView)
     {
         point = CGPointMake(lineView.frame.origin.x,point.y);
@@ -509,16 +509,19 @@
     if (self.stickerType == StickerPhotographType_Circle)
     {
         CGFloat circleRadius = MIN(rect.size.width * koef, rect.size.height * koef) * 0.5;
-        image = [UIImage circleImageWithName:self.originalImage circleCenter:CGPointMake((rect.origin.x + rect.size.width / 2) * koef,(rect.origin.y + rect.size.height / 2) * koef)  circleRadius:circleRadius  borderWidth:2 borderColor:[UIColor greenColor]];
+        UIImage *tempImage = [UIImage circleImageWithName:self.originalImage circleCenter:CGPointMake((rect.origin.x + rect.size.width / 2) * koef,(rect.origin.y + rect.size.height / 2) * koef)  circleRadius:circleRadius  borderWidth:2 borderColor:[UIColor greenColor]];
+         image = [UIImage getComposedImage:[UIImage imageNamed:@"stickerViewBgImage"] toImage:tempImage withRelativePosition:CGPointMake((tempImage.size.width / 2 - ((rect.origin.x + rect.size.width / 2) * koef)),(tempImage.size.height / 2 - ((rect.origin.y + rect.size.height / 2) * koef)))];
     }
     else if (self.stickerType == StickerPhotographType_Ractangle)
     {
-        image = [UIImage rectangleImageWithName:self.originalImage andWithFrame:CGRectMake(rect.origin.x * koef, rect.origin.y * koef, rect.size.width * koef, rect.size.height * koef) borderWidth:2 borderColor:[UIColor greenColor]];
+        UIImage *tempImage = [UIImage rectangleImageWithName:self.originalImage andWithFrame:CGRectMake(rect.origin.x * koef, rect.origin.y * koef, rect.size.width * koef, rect.size.height * koef) borderWidth:2 borderColor:[UIColor greenColor]];
+        image = [UIImage getComposedImage:[UIImage imageNamed:@"stickerViewBgImage"] toImage:tempImage withRelativePosition:CGPointMake((tempImage.size.width / 2 - ((rect.origin.x + rect.size.width / 2) * koef)),(tempImage.size.height / 2 - ((rect.origin.y + rect.size.height / 2) * koef)))];
     }
     else if(self.stickerType == StickerPhotographType_Circle_Ractangle)
     {
         CGFloat circleRadius = MIN(self.mCircleCropView.frame.size.width * koef, self.mCircleCropView.frame.size.height * koef) * 0.5;
-        image = [UIImage circleAndRectangleImageWithName:self.originalImage circleCenter:CGPointMake((rect.origin.x + rect.size.width / 2) * koef,(rect.origin.y + rect.size.height / 2) * koef) circleRadius:circleRadius frame:CGRectMake(rect.origin.x * koef, rect.origin.y * koef, rect.size.width * koef, rect.size.height * koef) borderWidth:2 borderColor:[UIColor greenColor]];
+        UIImage *tempImage = [UIImage circleAndRectangleImageWithName:self.originalImage circleCenter:CGPointMake((rect.origin.x + rect.size.width / 2) * koef,(rect.origin.y + rect.size.height / 2) * koef) circleRadius:circleRadius frame:CGRectMake(rect.origin.x * koef, rect.origin.y * koef, rect.size.width * koef, rect.size.height * koef) borderWidth:2 borderColor:[UIColor greenColor]];
+         image = [UIImage getComposedImage:[UIImage imageNamed:@"stickerViewBgImage"] toImage:tempImage withRelativePosition:CGPointMake((tempImage.size.width / 2 - ((rect.origin.x + rect.size.width / 2) * koef)),(tempImage.size.height / 2 - ((rect.origin.y + rect.size.height / 2) * koef)))];
     }
     else{
         image = self.originalImage;
@@ -526,5 +529,6 @@
     UIImage *temIamge = [UIImage image:image ScaleToSize:self.mImageView.image.size];
     return temIamge;
 }
+
 
 @end

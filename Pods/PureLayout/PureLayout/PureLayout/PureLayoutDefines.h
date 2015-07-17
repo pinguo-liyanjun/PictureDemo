@@ -1,5 +1,6 @@
 //
 //  PureLayoutDefines.h
+//  v2.0.5
 //  https://github.com/smileyborg/PureLayout
 //
 //  Copyright (c) 2014-2015 Tyler Fox
@@ -107,9 +108,9 @@ typedef NS_ENUM(NSInteger, ALDimension) {
 
 /** Constants that represent axes of a view. */
 typedef NS_ENUM(NSInteger, ALAxis) {
-    /** A vertical line equidistant from the view's left and right edges. */
+    /** A vertical line through the middle of the view's left and right edges. */
     ALAxisVertical = NSLayoutAttributeCenterX,
-    /** A horizontal line equidistant from the view's top and bottom edges. */
+    /** A horizontal line through the middle of the view's top and bottom edges. */
     ALAxisHorizontal = NSLayoutAttributeCenterY,
     
     /** A horizontal line at the baseline of the last line of text in the view. (For views that do not draw text, will be equivalent to ALEdgeBottom.) Same as ALAxisLastBaseline. */
@@ -142,9 +143,9 @@ typedef NS_ENUM(NSInteger, ALMargin) {
 
 /** Constants that represent axes of the layout margins of a view. Available in iOS 8.0 and later. */
 typedef NS_ENUM(NSInteger, ALMarginAxis) {
-    /** A vertical line equidistant from the view's left and right margins. */
+    /** A vertical line through the middle of the view's left and right margins. */
     ALMarginAxisVertical = NSLayoutAttributeCenterXWithinMargins,
-    /** A horizontal line equidistant from the view's top and bottom margins. */
+    /** A horizontal line through the middle of the view's top and bottom margins. */
     ALMarginAxisHorizontal = NSLayoutAttributeCenterYWithinMargins
 };
 
@@ -169,9 +170,9 @@ typedef NS_ENUM(NSInteger, ALAttribute) {
     ALAttributeWidth = ALDimensionWidth,
     /** The height of the view. */
     ALAttributeHeight = ALDimensionHeight,
-    /** A vertical line equidistant from the view's left and right edges. */
+    /** A vertical line through the middle of the view's left and right edges. */
     ALAttributeVertical = ALAxisVertical,
-    /** A horizontal line equidistant from the view's top and bottom edges. */
+    /** A horizontal line through the middle of the view's top and bottom edges. */
     ALAttributeHorizontal = ALAxisHorizontal,
     /** A horizontal line at the baseline of the last line of text in the view. (For views that do not draw text, will be equivalent to ALEdgeBottom.) Same as ALAxisLastBaseline. */
     ALAttributeBaseline = ALAxisBaseline,
@@ -192,9 +193,9 @@ typedef NS_ENUM(NSInteger, ALAttribute) {
     ALAttributeMarginLeading = ALMarginLeading,
     /** The trailing margin of the view, based on the view's layoutMargins left/right (depending on language direction) inset. */
     ALAttributeMarginTrailing = ALMarginTrailing,
-    /** A vertical line equidistant from the view's left and right margins. */
+    /** A vertical line through the middle of the view's left and right margins. */
     ALAttributeMarginAxisVertical = ALMarginAxisVertical,
-    /** A horizontal line equidistant from the view's top and bottom margins. */
+    /** A horizontal line through the middle of the view's top and bottom margins. */
     ALAttributeMarginAxisHorizontal = ALMarginAxisHorizontal
 #endif /* __PureLayout_MinBaseSDK_iOS_8_0 */
 };

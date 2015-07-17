@@ -62,6 +62,8 @@
     {
         _imageView = [[UIImageView alloc]initForAutoLayout];
         _imageView.backgroundColor = [UIColor clearColor];
+        _imageView.contentMode = UIViewContentModeCenter;
+        _imageView.layer.masksToBounds = YES;
     }
     return _imageView;
 }

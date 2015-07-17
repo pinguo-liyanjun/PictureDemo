@@ -353,7 +353,6 @@ typedef NS_ENUM(NSInteger, EditType) {
             
             if (!haveHDRGroup)
             {
-                
                 [assetsLibrary addAssetsGroupAlbumWithName:albumName
                                                resultBlock:^(ALAssetsGroup *group)
                  {
@@ -363,6 +362,7 @@ typedef NS_ENUM(NSInteger, EditType) {
                                               failureBlock:nil];
                 haveHDRGroup = YES;
             }
+            NSLog(@"%d",haveHDRGroup);
         }
         
     };

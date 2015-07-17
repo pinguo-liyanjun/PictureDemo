@@ -11,16 +11,29 @@
 @interface UIImage (Custom)
 
 + (UIImage *)circleImageWithName:(UIImage *)image borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
+
 + (UIImage *)circleImageWithName:(UIImage *)image circleCenter:(CGPoint)center circleRadius:(CGFloat)radius  borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
+
 + (UIImage *)rectangleImageWithName:(UIImage *)image andWithFrame:(CGRect)rect borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
+
 + (UIImage *)circleAndRectangleImageWithName:(UIImage *)image circleCenter:(CGPoint)center circleRadius:(CGFloat)radius frame:(CGRect)rect borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
+
 + (UIImage *)image:(UIImage *)image ScaleToSize:(CGSize)size;
 
++ (UIImage *)getThumbnailImage:(UIImage *)image withThumbnalSize:(CGSize)size;
+
++ (UIImage *)getComposedImage:(UIImage *)bgImage toImage:(UIImage *)image withRelativePosition:(CGPoint)position;
+
 - (UIImage *)imageAtRect:(CGRect)rect;
+
 - (UIImage *)imageByScalingProportionallyToMinimumSize:(CGSize)targetSize;
+
 - (UIImage *)imageByScalingProportionallyToSize:(CGSize)targetSize;
+
 - (UIImage *)imageByScalingToSize:(CGSize)targetSize;
+
 - (UIImage *)imageRotatedByRadians:(CGFloat)radians;
+
 - (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
 
 @end

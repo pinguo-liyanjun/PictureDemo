@@ -1,5 +1,6 @@
 //
 //  NSArray+PureLayout.m
+//  v2.0.5
 //  https://github.com/smileyborg/PureLayout
 //
 //  Copyright (c) 2012 Richard Turton
@@ -286,7 +287,7 @@
                              insetSpacing:(BOOL)shouldSpaceInsets
                              matchedSizes:(BOOL)shouldMatchSizes
 {
-    NSAssert([self al_containsMinimumNumberOfViews:1], @"This array must contain at least 1 view to distribute.");
+    NSAssert([self al_containsMinimumNumberOfViews:2], @"This array must contain at least 2 views to distribute.");
     ALDimension matchedDimension;
     ALEdge firstEdge, lastEdge;
     switch (axis) {
@@ -375,7 +376,7 @@
                             withFixedSize:(CGFloat)size
                              insetSpacing:(BOOL)shouldSpaceInsets
 {
-    NSAssert([self al_containsMinimumNumberOfViews:1], @"This array must contain at least 1 view to distribute.");
+    NSAssert([self al_containsMinimumNumberOfViews:2], @"This array must contain at least 2 views to distribute.");
     ALDimension fixedDimension;
     NSLayoutAttribute attribute;
     switch (axis) {
@@ -442,7 +443,7 @@
 #pragma mark Internal Helper Methods
 
 /**
- Returns the common superview for the views in this array. If there is only one view in the array, its superview will be returned.
+ Returns the common superview for the views in this array.
  Raises an exception if the views in this array do not share a common superview.
  
  @return The common superview for the views in this array.
@@ -457,7 +458,7 @@
             if (previousView) {
                 commonSuperview = [view al_commonSuperviewWithView:commonSuperview];
             } else {
-                commonSuperview = view.superview;
+                commonSuperview = view;
             }
             previousView = view;
         }
