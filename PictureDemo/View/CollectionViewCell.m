@@ -23,6 +23,8 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        self.backgroundColor = [UIColor clearColor];
+        
         [self addSubview:self.imageView];
         
         [self addSubview:self.selecetImageView];

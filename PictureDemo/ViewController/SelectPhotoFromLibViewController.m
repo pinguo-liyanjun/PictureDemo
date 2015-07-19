@@ -15,6 +15,7 @@
 #import "Language.h"
 #import "TaskHelper.h"
 #import "PadManager.h"
+#import "UIImage+Custom.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @interface SelectPhotoFromLibViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
@@ -211,7 +212,8 @@
     [cell sizeToFit];
     
     UIImage *image  = [self.mDataSourceArray objectAtIndex:indexPath.row];
-    cell.imageView.image = image;
+    
+    cell.imageView.image = [UIImage getThumbnailImage:image withThumbnalSize:CGSizeMake((DEVIECE_MAINFRAME.size.width-45)/3, (DEVIECE_MAINFRAME.size.width-45)/3)];
     return cell;
 }
 

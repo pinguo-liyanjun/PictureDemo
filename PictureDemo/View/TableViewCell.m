@@ -25,7 +25,7 @@
         
         [self addSubview:self.posterImageView];
         
-        [self addSubview:self.accessImageView];
+//        [self addSubview:self.accessImageView];
         
         [self addSubview:self.titleLabel];
         
@@ -59,11 +59,11 @@
         [self.photoCountLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.titleLabel];
         [self.photoCountLabel autoSetDimension:ALDimensionHeight toSize:24];
         [self.photoCountLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:70];
-        
-        [self.accessImageView autoSetDimensionsToSize:CGSizeMake(14, 14)];
-        [self.accessImageView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:10];
-        [self.accessImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:(CGRectGetHeight(self.frame)-14)/2];
-        
+//        
+//        [self.accessImageView autoSetDimensionsToSize:CGSizeMake(14, 14)];
+//        [self.accessImageView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10.0];
+//        [self.accessImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:(CGRectGetHeight(self.frame)-14)/2];
+//        
         self.mDidSetupConstraints = YES;
     }
 

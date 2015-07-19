@@ -1,10 +1,10 @@
 PODS:
-  - PureLayout (2.0.6)
+  - PureLayout (2.0.5)
 
 DEPENDENCIES:
-  - PureLayout (= 2.0.6)
+  - PureLayout (= 2.0.5)
 
 SPEC CHECKSUMS:
-  PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
+  PureLayout: a0fe75f1cf485801e7e00b723b8a3c32dca558e2
 
 COCOAPODS: 0.37.2

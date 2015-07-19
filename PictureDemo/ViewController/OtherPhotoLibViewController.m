@@ -127,7 +127,7 @@
     {
         cell = [[TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusedIdentifier];
     }
-    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     ALAssetsGroup *group = (ALAssetsGroup *)[self.mDataSourceArray objectAtIndex:indexPath.row];
     cell.posterImageView.image = [UIImage imageWithCGImage:[group posterImage]];
     cell.titleLabel.text = [group valueForProperty:ALAssetsGroupPropertyName];
