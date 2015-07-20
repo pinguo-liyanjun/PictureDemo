@@ -236,11 +236,13 @@
     {
         self.mRectangleCropView.hidden = YES;
         self.mCircleCropView.hidden = NO;
+        [self drawCircleCropView:self.mCircleCropView.frame];
     }
     else if (stickerType == StickerPhotographType_Ractangle)
     {
         self.mRectangleCropView.hidden = NO;
         self.mCircleCropView.hidden = YES;
+        [self drawRactangleCropView:self.mRectangleCropView.frame];
     }
     else if (stickerType == StickerPhotographType_Circle_Ractangle)
     {
@@ -443,10 +445,12 @@
     if (self.stickerType == StickerPhotographType_Circle)
     {
         [self.mCircleCropView setFrame:CGRectMake(self.mTopLeftCorner.center.x, self.mTopLeftCorner.center.y, self.mTopLineView.frame.size.width, self.mRightLineView.frame.size.height)];
+        [self drawCircleCropView:self.mCircleCropView.frame];
     }
     else if (self.stickerType == StickerPhotographType_Ractangle)
     {
         [self.mRectangleCropView setFrame:CGRectMake(self.mTopLeftCorner.center.x, self.mTopLeftCorner.center.y, self.mTopLineView.frame.size.width, self.mRightLineView.frame.size.height)];
+        [self drawRactangleCropView:self.mRectangleCropView.frame];
     }
     else
     {
@@ -455,8 +459,8 @@
     
 }
 
-- (CGRect) visibleRect{
-    
+- (CGRect) visibleRect
+{
     CGRect visibleRect;
     CGSize imageSize = self.mImageView.image.size;
     CGPoint imageCenter = self.mImageView.center;
@@ -492,6 +496,7 @@
         [self.mBottomRightCorner setFrame:CGRectMake(imageCenter.x + imageSize.width /2 - CornerWidth / 2, imageCenter.y + imageSize.height /2 - CornerHeight / 2, CornerWidth, CornerHeight)];
         
           [self.mCircleCropView setFrame:CGRectMake(self.mTopLeftCorner.center.x, self.mTopLeftCorner.center.y, self.mTopLineView.frame.size.width, self.mRightLineView.frame.size.height)];
+        
          [self.mRectangleCropView setFrame:CGRectMake(self.mTopLeftCorner.center.x, self.mTopLeftCorner.center.y, self.mTopLineView.frame.size.width, self.mRightLineView.frame.size.height)];
     }
     else
@@ -530,5 +535,50 @@
     return temIamge;
 }
 
+- (void)drawCircleCropView:(CGRect)rect
+{
+    
+    UIGraphicsBeginImageContext(rect.size);
+    
+    CGPoint circleCenter =  CGPointMake(rect.size.width / 2, rect.size.height / 2);
+    CGFloat radius = MIN(rect.size.width / 2, rect.size.height / 2) - 1;
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    CGMutablePathRef circlePath = CGPathCreateMutable();
+    CGPathAddArc(circlePath, NULL, circleCenter.x, circleCenter.y, radius , 0, M_PI * 2, false) ;
+    CGContextAddPath(ctx, circlePath);
+    
+    [[UIColor redColor]setStroke];
+    CGContextSetLineWidth(ctx, 1.5);
+    
+    CGContextStrokePath(ctx);
+    
+    CGPathRelease(circlePath);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    self.mCircleCropView.backgroundColor = [UIColor colorWithPatternImage:image];
+    
+    UIGraphicsEndImageContext();
+}
+
+- (void)drawRactangleCropView:(CGRect)rect
+{
+    UIGraphicsBeginImageContext(rect.size);
+    
+    CGRect drawRect = CGRectMake(0, 0, rect.size.width, rect.size.height);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextAddRect(ctx, drawRect);
+    
+    [[UIColor greenColor] setStroke];
+    CGContextSetLineWidth(ctx,3.0);
+    
+    CGContextStrokePath(ctx);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    self.mRectangleCropView.backgroundColor = [UIColor colorWithPatternImage:image];
+    
+    UIGraphicsEndImageContext();
+}
 
 @end

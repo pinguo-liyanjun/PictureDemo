@@ -45,6 +45,7 @@
 {
     if (!self.mDidSetupConstraints)
     {
+        self.mDidSetupConstraints = YES;
         [self.imageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:10];
         [self.imageView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:18];
         [self.imageView autoSetDimensionsToSize:CGSizeMake(34, 34)];
@@ -54,7 +55,6 @@
         [self.titleLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.imageView withOffset:5];
         [self.titleLabel autoSetDimension:ALDimensionHeight toSize:30];
         
-        self.mDidSetupConstraints = YES;
     }
     [super updateConstraints];
 }

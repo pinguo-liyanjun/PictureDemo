@@ -85,12 +85,13 @@
 {
     if (!self.didSetupConstraints)
     {
+        self.didSetupConstraints = YES;
+        
         [self.mCollectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:0];
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         
-        self.didSetupConstraints = YES;
     }
     [super updateViewConstraints];
 }

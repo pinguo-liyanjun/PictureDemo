@@ -50,12 +50,13 @@
 {
     if (!self.mDidSetupConstraints)
     {
+        
+        self.mDidSetupConstraints = YES;
         [self.mToolBar autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.mToolBar autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         [self.mToolBar autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         [self.mToolBar autoSetDimension:ALDimensionHeight toSize:45];
-        
-        self.mDidSetupConstraints = YES;
+      
     }
     
     [super updateViewConstraints];

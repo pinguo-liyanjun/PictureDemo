@@ -58,6 +58,7 @@
 {
     if (!self.mDidSetupConstraints)
     {
+        self.mDidSetupConstraints = YES;
         [self.mStickerPhotographTypeCollectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.stickerPhotoView];
         [self.mStickerPhotographTypeCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
         [self.mStickerPhotographTypeCollectionView autoPinEdgeToSuperviewEdge:ALEdgeRight];
@@ -67,8 +68,6 @@
         [self.mToolBar autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         [self.mToolBar autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         [self.mToolBar autoSetDimension:ALDimensionHeight toSize:44];
-        
-        self.mDidSetupConstraints = YES;
     }
     
     [super updateViewConstraints];
@@ -81,11 +80,13 @@
         _stickerPhotoView = [[StickerPhotographView alloc]initWithFrame:CGRectMake(5, 25, CGRectGetWidth(self.view.frame)-10, CGRectGetHeight(self.view.frame)-140)];
         if (self.origainImage) {
             [_stickerPhotoView setSourceImage:self.origainImage];
+             _stickerPhotoView.stickerType = StickerPhotographType_Circle;
         }
     }
     
     return _stickerPhotoView;
 }
+
 
 - (UICollectionView *)mStickerPhotographTypeCollectionView
 {

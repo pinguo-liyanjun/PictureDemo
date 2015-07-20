@@ -101,6 +101,7 @@ typedef NS_ENUM(NSInteger, EditType) {
 {
     if (!self.didSetupConstraints)
     {
+        self.didSetupConstraints = YES;
         [self.leftBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
         [self.leftBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
         [self.leftBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
@@ -119,8 +120,7 @@ typedef NS_ENUM(NSInteger, EditType) {
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         [self.mCollectionView autoSetDimension:ALDimensionHeight toSize:95];
-        self.didSetupConstraints = YES;
-        
+       
     }
     [super updateViewConstraints];
 }
@@ -290,7 +290,7 @@ typedef NS_ENUM(NSInteger, EditType) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[PadManager sharedPadManagerInstance]setPadStatus:PadStatusType_Waiting withInDic:nil resultBlock:nil];
         [[TaskHelper sharedInstance]asyncTask:^(NSDictionary *result){
-                [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:@"保存中。。。"];
+                [[PadManager sharedPadManagerInstance]updateWaitingViewTitle:[[Language sharedLanguage] stringForKey:@"saving"]];
                 static dispatch_once_t onceToken;
                 dispatch_once(&onceToken, ^{
                      [self createAlbumInPhoneAlbumWithName:[[Language sharedLanguage]stringForKey:@"albumName"]];

@@ -35,6 +35,7 @@
 {
     if (!self.mDidSetupConstraints)
     {
+        self.mDidSetupConstraints = YES;
         [self.backgroundView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.backgroundView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
         [self.backgroundView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
@@ -45,8 +46,7 @@
         [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:70];
         [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
         [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
-        
-        self.mDidSetupConstraints = YES;
+ 
     }
 
     [super updateConstraints];

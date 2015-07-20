@@ -56,6 +56,7 @@ static Language *sharedLanguageInstance = nil;
         
         [zh_cn setObject:@"导出" forKey:@"export"];
         [zh_cn setObject:@"大头贴demo" forKey:@"albumName"];
+        [zh_cn setObject:@"保存中。。。" forKey:@"saving"];
         
         _languageArray = [[NSArray alloc]initWithObjects:zh_cn, nil];
     }

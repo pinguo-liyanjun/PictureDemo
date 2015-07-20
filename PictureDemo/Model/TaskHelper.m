@@ -55,14 +55,15 @@ static TaskHelper *taskHelperInstance = nil;
         NSCondition *taskLock = [[NSCondition alloc] init];
         __block BOOL taskDoneFlag = NO;
         __block BOOL isMainThreadFlag = [[NSThread currentThread] isMainThread];
-        dispatch_async(self.mTaskQueue, ^{
+        
+        __weak typeof(self) weakSelf = self;
+        dispatch_async(weakSelf.mTaskQueue, ^{
             block(inDic);
             taskDoneFlag = YES;
             if(!isMainThreadFlag)
             {
                 [taskLock signal];
             }
-            
         });
         
         [taskLock lock];

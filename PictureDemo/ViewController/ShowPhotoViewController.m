@@ -91,6 +91,7 @@
 {
     if (!self.didSetupConstraints)
     {
+        self.didSetupConstraints = YES;
         [self.leftBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
         [self.leftBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
         [self.leftBtn autoSetDimensionsToSize:CGSizeMake(44, NAVIGATIONBAR_HEIGHT)];
@@ -103,7 +104,7 @@
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.mCollectionView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         [self.mCollectionView autoSetDimension:ALDimensionHeight toSize:DEVIECE_MAINFRAME.size.height-NAVIGATIONBAR_HEIGHT];
-        self.didSetupConstraints = YES;
+
     
     }
     [super updateViewConstraints];

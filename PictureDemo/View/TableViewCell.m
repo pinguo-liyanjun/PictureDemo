@@ -46,6 +46,7 @@
 {
     if (!self.mDidSetupConstraints)
     {
+        self.mDidSetupConstraints = YES;
         [self.posterImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:10];
         [self.posterImageView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
         [self.posterImageView autoSetDimensionsToSize:CGSizeMake(60,60)];
@@ -63,8 +64,7 @@
 //        [self.accessImageView autoSetDimensionsToSize:CGSizeMake(14, 14)];
 //        [self.accessImageView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10.0];
 //        [self.accessImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:(CGRectGetHeight(self.frame)-14)/2];
-//        
-        self.mDidSetupConstraints = YES;
+//
     }
 
     [super updateConstraints];

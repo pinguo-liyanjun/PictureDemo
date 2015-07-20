@@ -72,12 +72,12 @@
 {
     if (!self.didSetupConstraints)
     {
+         self.didSetupConstraints = YES;
         [self.mTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.navBar withOffset:5];
         [self.mTableView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:5];
         [self.mTableView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
         [self.mTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
-        
-        self.didSetupConstraints = YES;
+    
     }
     
     [super updateViewConstraints];

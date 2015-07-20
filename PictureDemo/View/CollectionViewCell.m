@@ -45,13 +45,13 @@
 {
     if (!self.mDidSetupConstraints)
     {
+        self.mDidSetupConstraints = YES;
         [self.imageView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         
         [self.selecetImageView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
         [self.selecetImageView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
         [self.selecetImageView autoSetDimensionsToSize:CGSizeMake(20, 20)];
         
-        self.mDidSetupConstraints = YES;
     }
     [super updateConstraints];
 }

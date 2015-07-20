@@ -27,7 +27,7 @@
 #define NAVIGATIONBAR_HEIGHT        44
 
 //window
-#define FIRSTWINDOW ((UIWindow *)[[UIApplication sharedApplication].windows objectAtIndex:0])
+#define FIRSTWINDOW [UIApplication sharedApplication].keyWindow
 
 #define SAVETOLOCALLIBRARY      YES
 
